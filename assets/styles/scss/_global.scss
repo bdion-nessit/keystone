@@ -4,9 +4,48 @@ Stylesheet: Main Stylesheet
 
 *************************************************/
 
+/***************************************
+
+Table of Contents
+
+1. Variables
+	a. SCSS Variables
+	b. CSS Variables
+2. Mix-ins
+3. Joints Fixes
+4. General Styles
+5. Link Styles
+6. H1, H2, H3, H4, H5 P Styles
+7. Header Styles
+	a. Intro Styles
+8. Navigation Styles
+9. Posts & Content Styles
+10. Image Gallery Styles
+11. Page Navi Styles
+12. Comment Styles
+13. Comment Form Styles
+14. Sidebars & Asides
+15. Footer Styles
+16. Foundation Styles
+17. Plugin Styles
+	a. Custom Button
+	b. Multi-item Slider
+18. Page-specific Styles
+19. Media Queries
+
+****************************************/
+
 /*********************
 Variables
 *********************/
+
+	/*********************
+	SCSS Variables
+	*********************/
+
+	/*********************
+	CSS Variables
+	*********************/
 
 /*********************
 Mix-ins
@@ -125,7 +164,7 @@ html {
 }
 
 /*********************
-LINK STYLES
+Link Styles
 *********************/
 a, a:visited {
 
@@ -137,7 +176,7 @@ a, a:visited {
 }
 
 /*********************
-H1, H2, H3, H4, H5 P STYLES
+H1, H2, H3, H4, H5 P Styles
 *********************/
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
 
@@ -168,7 +207,7 @@ h5, .h5 {
 }
 
 /*********************
-HEADER STYLES
+Header Styles
 *********************/
 .header {
 	ul.off-canvas-list li {
@@ -177,11 +216,11 @@ HEADER STYLES
 }
 
 	/*********************
-	INTRO STYLES
+	Intro Styles
 	*********************/
     
 /*********************
-NAVIGATION STYLES
+Navigation Styles
 *********************/
 .top-bar {
 	.title-area {
@@ -245,7 +284,7 @@ NAVIGATION STYLES
 }
 
 /*********************
-POSTS & CONTENT STYLES
+Posts & Content Styles
 *********************/
 
 .modal{
@@ -453,7 +492,7 @@ POSTS & CONTENT STYLES
 }
 
 /*********************
-IMAGE GALLERY STYLES
+Image Gallery Styles
 *********************/
 	.gallery {
 
@@ -479,14 +518,14 @@ IMAGE GALLERY STYLES
 .size-thumbnail {}
 
 /*********************
-PAGE NAVI STYLES
+Page Navi Styles
 *********************/
 .page-navigation {
 	margin-top: 1rem;
 }
 
 /*********************
-COMMENT STYLES
+Comment Styles
 *********************/
 #comments {
 	.commentlist {
@@ -624,7 +663,7 @@ COMMENT STYLES
 }
     
 /*********************
-COMMENT FORM STYLES
+Comment Form Styles
 *********************/
 .respond-form {
 	margin: 1.5em 10px;
@@ -707,7 +746,7 @@ COMMENT FORM STYLES
 }
 
 /*********************
-SIDEBARS & ASIDES
+Sidebars & Asides
 *********************/
 .sidebar {
 }
@@ -728,18 +767,18 @@ SIDEBARS & ASIDES
 	}
 }
 /*********************
-FOOTER STYLES
+Footer Styles
 *********************/
 .site-footer {
 	clear: both;
 }
 	
 /*********************
-FOUNDATION STYLES
+Foundation Styles
 *********************/
 
 /*********************
-PLUGIN STYLES
+Plugin Styles
 *********************/
 
 // Makes Gravity Forms play nice with Foundation Form styles
@@ -824,7 +863,7 @@ PLUGIN STYLES
 }
 
 	/*********************
-	CUSTOM BUTTON
+	Custom Button
 	*********************/
 
 .custom_button {
@@ -871,7 +910,7 @@ PLUGIN STYLES
 */
 
 	/*********************
-	MULTI-ITEM SLIDER
+	Multi-item Slider
 	*********************/
 
 .multi-slide-wrap {
@@ -938,7 +977,11 @@ PLUGIN STYLES
 }
 
 /*********************
-MEDIA QUERIES
+Page-specific Styles
+*********************/
+
+/*********************
+Media Queries
 *********************/
 
 @include breakpoint(1920px up) {
