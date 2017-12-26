@@ -283,6 +283,13 @@ function echo_close_vc_row_wrapper() {
 	echo close_vc_row_wrapper();
 }
 
+function add_clearfix() {
+	return '<div class="clearfix"></div>';
+}
+function echo_add_clearfix() {
+	echo add_clearfix();
+}
+
 //-------Begin Shortcodes------
 
 add_shortcode('get_search_box', 'get_search_form'); //Makes the base search form widget accessible by shortcode

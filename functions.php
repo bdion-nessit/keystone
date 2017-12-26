@@ -199,12 +199,14 @@ function call_nav_filter() {
 
 function custom_nav_filter($items, $args) {
     
-  if($args->menu->slug === 'primary-nav') {
-      
-	//Add sub-menu data for foundation dropdowns
-    $args->items_wrap = '<ul id="%1$s" class="%2$s horizontal dropdown menu" data-dropdown-menu>%3$s</ul>';
-    $items = preg_replace('/sub\-menu/', 'sub-menu menu vertical', $items);
-  }
+	$locations = get_nav_menu_locations();
+	if(!empty($locations['main-nav']) && $locations['main-nav'] === $args->menu->term_id) {
+
+		//Add sub-menu data for foundation dropdowns
+		$args->items_wrap = '<ul id="%1$s" class="%2$s horizontal dropdown menu" data-dropdown-menu>%3$s</ul>';
+		$items = preg_replace('/sub\-menu/', 'sub-menu nested menu vertical', $items);
+	}
+	
   return $items;
 }
 
