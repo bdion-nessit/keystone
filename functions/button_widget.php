@@ -164,6 +164,7 @@ class Custom_Button extends WP_Widget {
 				 <option value="hover-fill-up"<?php echo ($hover_anim === 'hover-fill-up' ? ' selected' : ''); ?>>Fill Up</option>
 				 <option value="hover-partial-fill-down"<?php echo ($hover_anim === 'hover-partial-fill-down' ? ' selected' : ''); ?>>Partial Fill Down</option>
 				 <option value="hover-fill-right"<?php echo ($hover_anim === 'hover-fill-right' ? ' selected' : ''); ?>>Fill Right</option>
+			  	<option value="hover-fill-right gradient"<?php echo ($hover_anim === 'hover-fill-right gradient' ? ' selected' : ''); ?>>Fill Right Gradient</option>
 		</select>
 		</label>
 		</p>

@@ -766,6 +766,8 @@ function vc_custom_button_init() {
             'value' => array(
               'None' => '',
               'Fill Up' => 'hover-fill-up',
+				'Fill Right' => 'hover-fill-right',
+				'Fill Right Gradient' => 'hover-fill-right gradient',
               'Partial Fill Down' => 'hover-partial-fill-down',
               'Underline Slide Out Left 50%' => 'hover-underline-slide-left-half',
               ),
@@ -1250,16 +1252,13 @@ function joints_custom_vc_button($atts) {
 
       $classes_arr[] = $style_id;
         
+	$button_atts['content'] .= $button_atts['hover_anim'];
       switch($button_atts['hover_anim']) {
 
         case 'hover-fill-right':
-          $vc_custom_styles .= (isset($atts['hover_bg_color']) ? '.' . $style_id . '.hover-fill-right:before {
-            background-color: ' . $atts['hover_bg_color'] . ' !important;
-          }' . PHP_EOL : '');
-          break;
-
+		case 'hover-fill-right gradient':
         case 'hover-fill-up':
-          $vc_custom_styles .= '.' . $style_id . ':hover.hover-fill-up {' . 
+          $vc_custom_styles .= '.' . $style_id . ':hover {' . 
             (isset($atts['hover_text_color']) ? 'color: ' . $atts['hover_text_color'] . ' !important;' : '') .
             (isset($atts['hover_border_color']) ? 'border-color: ' . $atts['hover_border_color'] . ' !important;' : '') .
             (isset($atts['hover_bg_color']) ? 'background-color: ' . $atts['hover_bg_color'] . ' !important;' : '') .
@@ -1283,9 +1282,24 @@ function joints_custom_vc_button($atts) {
       }
         
         //styles shared across animation types
-      $vc_custom_styles .= (isset($atts['hover_bg_color']) ? '.' . $style_id . ':hover:before {
-            background-color: ' . $atts['hover_bg_color'] . ' !important;
-          }' . PHP_EOL : '');
+		if(isset($atts['hover_bg_color'])) {
+			if(preg_match("/gradient/", $button_atts['hover_anim'])) {
+				$direction = '';
+				switch($button_atts['hover_anim']) {
+					case 'hover-fill-right gradient':
+						$direction = 'right';
+						break;
+				}
+				$vc_custom_styles .= '.' . $style_id . ':hover:before {
+					background: linear-gradient(to ' . $direction . ', ' . $atts['hover_bg_color'] . ' 0, ' . $atts['hover_bg_color'] . ' 30%, rgba(0, 0, 0, 0) 60%) !important;
+				}' . PHP_EOL;
+			}	
+			else {
+				$vc_custom_styles .= '.' . $style_id . ':hover:before {
+					background-color: ' . $atts['hover_bg_color'] . ' !important;
+				}' . PHP_EOL;
+			}
+	  	}
     }
       
     //if using pre-set hover colors
