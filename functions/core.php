@@ -25,21 +25,21 @@ add_action('wp_footer', 'get_theme_scripts'); //Add general custom scripts
 add_action('wp_footer', 'get_modal_scripts');
 
 function get_theme_scripts() {
-  echo '<script type="text/javascript" src="' . get_stylesheet_directory_uri() . '/assets/scripts/js/theme_scripts.js"></script>';
+  echo '<script type="text/javascript" src="' . get_stylesheet_directory_uri() . '/assets/scripts/js_no_compile/theme_scripts.js"></script>';
 }
 
 function get_modal_scripts() {
-	echo '<script type="text/javascript" src="' . get_stylesheet_directory_uri() . '/assets/scripts/js/modal.js"></script>';
+	echo '<script type="text/javascript" src="' . get_stylesheet_directory_uri() . '/assets/scripts/js_no_compile/modal.js"></script>';
 }
 
 //Only output to page if one or more sliders present on page
 function get_slider_scripts() {
-  echo '<script type="text/javascript" src="' . get_stylesheet_directory_uri() . '/assets/scripts/js/slider.js"></script>';
+  echo '<script type="text/javascript" src="' . get_stylesheet_directory_uri() . '/assets/scripts/js_no_compile/slider.js"></script>';
 }
 
 //Only output to page if one or more sliders present on page
 function get_multi_slider_scripts() {
-	echo '<script type="text/javascript" src="' . get_stylesheet_directory_uri() . '/assets/scripts/js/multi_slider.js"></script>';
+	echo '<script type="text/javascript" src="' . get_stylesheet_directory_uri() . '/assets/scripts/js_no_compile/multi_slider.js"></script>';
 }
 
 //Get the script for pagination, and allow for its ajax connection
@@ -48,7 +48,7 @@ add_action( 'wp_ajax_blog_load_more', 'do_blog_load_more' );
 add_action( 'wp_ajax_nopriv_blog_load_more', 'do_blog_load_more' );
 
 function enqueue_blog_load_more() {
-  wp_enqueue_script( 'blog_load_more_ajax', get_stylesheet_directory_uri() . '/assets/scripts/js/pagination_ajax.js', array('jquery'), '1.0', true );
+  wp_enqueue_script( 'blog_load_more_ajax', get_stylesheet_directory_uri() . '/assets/scripts/js_no_compile/pagination_ajax.js', array('jquery'), '1.0', true );
 
   wp_localize_script( 'blog_load_more', 'ajax_admin_url', array(
     'ajax_url' => admin_url( 'admin-ajax.php' )
@@ -61,7 +61,7 @@ add_action( 'wp_ajax_custom_post_query', 'do_custom_post_query' );
 add_action( 'wp_ajax_nopriv_custom_post_query', 'do_custom_post_query' );
 
 function enqueue_custom_post_query() {
-  wp_enqueue_script( 'custom_post_query_ajax', get_stylesheet_directory_uri() . '/assets/scripts/js/custom_post_query_ajax.js', array('jquery'), '1.0', true );
+  wp_enqueue_script( 'custom_post_query_ajax', get_stylesheet_directory_uri() . '/assets/scripts/js_no_compile/custom_post_query_ajax.js', array('jquery'), '1.0', true );
 
   wp_localize_script( 'custom_post_query_ajax', 'ajax_admin_url', array(
     'ajax_url' => admin_url( 'admin-ajax.php' )
@@ -74,7 +74,7 @@ add_action( 'wp_ajax_update_post', 'update_post' );
 add_action( 'wp_ajax_nopriv_update_post', 'update_post' );
 
 function enqueue_update_post() {
-  wp_enqueue_script( 'update_post_ajax', get_stylesheet_directory_uri() . '/assets/scripts/js/update_post_ajax.js', array('jquery'), '1.0', true );
+  wp_enqueue_script( 'update_post_ajax', get_stylesheet_directory_uri() . '/assets/scripts/js_no_compile/update_post_ajax.js', array('jquery'), '1.0', true );
 
   wp_localize_script( 'update_post_ajax', 'ajax_admin_url', array(
     'ajax_url' => admin_url( 'admin-ajax.php' )
@@ -216,7 +216,7 @@ class Joints_Core_Custom_Options {
    public static function live_preview() {
       wp_enqueue_script( 
            'mytheme-themecustomizer', // Give the script a unique ID
-           get_template_directory_uri() . '/assets/js/theme-customizer.js', // Define the path to the JS file
+           get_template_directory_uri() . '/assets/js_no_compile/theme-customizer.js', // Define the path to the JS file
            array(  'jquery', 'customize-preview' ), // Define dependencies
            '', // Define a version (optional) 
            true // Specify whether to put in footer (leave this true)
@@ -507,11 +507,23 @@ function close_intro_content() {
 	//-------End Intro Section-------
 
 add_action('joints_nav', 'joints_do_topbar'); //Get top "sidebar";
+add_action('joints_nav', 'joints_do_mobile_menu');
 
 function joints_do_topbar() {
 	echo '<div class="top-sidebar">';
 	dynamic_sidebar('top_sidebar'); 
 	echo '</div>';
+}
+
+function joints_do_mobile_menu() {
+	echo '<div class="mobile-menu">
+		<div class="hamburger-menu-wrap">
+			<div class="hamburger-menu"></div>
+		</div>
+		<div class="mobile-menu-inner">';
+			dynamic_sidebar('mobile_menu'); 
+	echo '</div>
+	</div>';
 }
 
 //-------End Header Functionality-------

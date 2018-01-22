@@ -32,6 +32,16 @@ function joints_register_sidebars() {
 			'before_widget' => '<div id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</div>',
 	);
+	
+	$args_arr[] = array(
+			'name' => 'Mobile Menu',
+			'id' => 'mobile_menu',
+			'description'   => 'A widget area for mobile browsers',
+			'before' => '<div class="mobile-menu">',
+			'after' => '</div>',
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+	);
 
 	$args_arr[] = array(
 			'name' => 'Footer sidebar 1',

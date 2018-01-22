@@ -194,6 +194,8 @@ function call_nav_filter() {
   if ( is_admin() ) {
         return;
     }
+	global $is_mobile_menu;
+    $is_mobile_menu = false;
     add_filter('wp_nav_menu_items', 'custom_nav_filter', 1, 2);
 }
 
@@ -201,10 +203,17 @@ function custom_nav_filter($items, $args) {
     
 	$locations = get_nav_menu_locations();
 	if(!empty($locations['main-nav']) && $locations['main-nav'] === $args->menu->term_id) {
-
-		//Add sub-menu data for foundation dropdowns
-		$args->items_wrap = '<ul id="%1$s" class="%2$s horizontal dropdown menu" data-dropdown-menu>%3$s</ul>';
-		$items = preg_replace('/sub\-menu/', 'sub-menu nested menu vertical', $items);
+		global $is_mobile_menu;
+		if(!$is_mobile_menu) {
+		  //Add sub-menu data for foundation dropdowns
+			$args->items_wrap = '<ul id="%1$s" class="%2$s horizontal dropdown menu" data-dropdown-menu>%3$s</ul>';
+			$items = preg_replace('/sub\-menu/', 'sub-menu nested menu vertical', $items);
+			$is_mobile_menu = true;
+		}
+		else {
+		  $args->items_wrap = '<ul id="%1$s" class="%2$s vertical menu drilldown" data-drilldown data-auto-height="true">%3$s</ul>';
+		  $items = preg_replace('/sub\-menu/', 'sub-menu menu vertical', $items);
+		}
 	}
 	
   return $items;

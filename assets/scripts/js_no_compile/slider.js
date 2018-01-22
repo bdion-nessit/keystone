@@ -135,7 +135,7 @@ jQuery(function($) {
 			
 			//In order to reduce complexity, clicking the "previous" or "next" buttons behaves as if you had clicked the button of the previous or next slide, respectively
 			$('.content-slide-prev').click(function() {
-				if(!(controls.find('.active').prevAll()(".content-slide-button").length <= 0)) {
+				if(!(controls.find('.active').prevAll(".content-slide-button").length <= 0)) {
 					controls.find('.active').prevAll(".content-slide-button").last().trigger('click');
 				}
 				else {
@@ -143,8 +143,8 @@ jQuery(function($) {
 				}
 			});
 			$('.content-slide-next').click(function() {
-				if(!(controls.find('.active').nextAll()(".content-slide-button").length <= 0)) {
-					controls.find('.active').nextAll()(".content-slide-button").first().trigger('click');
+				if(!(controls.find('.active').nextAll(".content-slide-button").length <= 0)) {
+					controls.find('.active').nextAll(".content-slide-button").first().trigger('click');
 				}
 				else {
 					controls.find('.content-slide-button').first().trigger('click');

@@ -162,7 +162,7 @@ class Custom_Button extends WP_Widget {
 				 value="<?php echo esc_attr($hover_anim); ?>">
 				 <option value="">None</option>
 				 <option value="hover-fill-up"<?php echo ($hover_anim === 'hover-fill-up' ? ' selected' : ''); ?>>Fill Up</option>
-				 <option value="hover-partial-fill-down"<?php echo ($hover_anim === 'hover-partial-fill-down' ? ' selected' : ''); ?>>Partial Fill Down</option>
+				 <option value="hover-partial-fill-down"<?php echo ($hover_anim === 'hover-fill-down partial' ? ' selected' : ''); ?>>Partial Fill Down</option>
 				 <option value="hover-fill-right"<?php echo ($hover_anim === 'hover-fill-right' ? ' selected' : ''); ?>>Fill Right</option>
 			  	<option value="hover-fill-right gradient"<?php echo ($hover_anim === 'hover-fill-right gradient' ? ' selected' : ''); ?>>Fill Right Gradient</option>
 		</select>
@@ -176,7 +176,6 @@ class Custom_Button extends WP_Widget {
 		  <select class="widefat" id="<?php echo $this->get_field_id('hover_color'); ?>" 
 				 name="<?php echo $this->get_field_name('hover_color'); ?>"
 				 value="<?php echo esc_attr($hover_color); ?>">
-				 <option value="hover-blue"<?php echo ($hover_color === 'hover-blue' ? ' selected' : ''); ?>>Blue</option>
 				  <option value="hover-gray"<?php echo ($hover_color === 'hover-gray' ? ' selected' : ''); ?>>Gray</option>
 				 <option value="hover-blue-inverse"<?php echo ($hover_color === 'hover-blue-inverse' ? ' selected' : ''); ?>>White w/ Blue Text</option>
 		</select>

@@ -27,4 +27,4 @@ do_action('joints_before_content');
 
 <?php 
 do_action('joints_after_content');
-get_footer(); 
+get_footer();

@@ -16,12 +16,7 @@ function set_vc_defaults() {
 	));
 	
 	vc_update_shortcode_param('vc_custom_heading', array(
-		'type' => 'checkbox',
-        'heading' => 'Use theme default font family?',
         'param_name' => 'use_theme_fonts',
-		'value' => array(
-			'Yes' => 'yes',
-		),
 		'std' => 'yes',
 	));
 	
@@ -677,16 +672,17 @@ function vc_custom_button_init() {
   if(!function_exists('vc_map')) {
     return;
   }
-  vc_map( array(
-      "name" => 'Joints Custom Button',
-      "base" => "vc_inline_custom_button",
-      "params" => array(
-          array(
-              "type" => "dropdown",
-              'admin_label' => true,
-              "class" => "",
-              "heading" => 'Button Content Type',
-              "param_name" => "content_type",
+	vc_map( array(
+		"name" => 'Joints Custom Button',
+		"base" => "vc_inline_custom_button",
+		'icon' => 'vc_custom_button_icon',
+		"params" => array(
+			array(
+				"type" => "dropdown",
+				'admin_label' => true,
+				"class" => "",
+				"heading" => 'Button Content Type',
+				"param_name" => "content_type",
               'group' => 'General',
               'value' => array(
                 'Text' => 'text',
@@ -768,17 +764,16 @@ function vc_custom_button_init() {
               'Fill Up' => 'hover-fill-up',
 				'Fill Right' => 'hover-fill-right',
 				'Fill Right Gradient' => 'hover-fill-right gradient',
-              'Partial Fill Down' => 'hover-partial-fill-down',
+              'Partial Fill Down' => 'hover-fill-down partial',
               'Underline Slide Out Left 50%' => 'hover-underline-slide-left-half',
               ),
             ),
           array(
-            'type' => 'dropdown',
-            'heading' => 'Hover Color',
+			  'type' => 'dropdown',
+			  'heading' => 'Hover Color',
             'param_name' => 'hover_color',
             'group' => 'General',
             'value' => array(
-              'Blue' => 'hover-blue',
               'Gray' => 'hover-gray',
               'White w/ Blue Text' => 'hover-blue-inverse',
               'White' => 'hover-white',
