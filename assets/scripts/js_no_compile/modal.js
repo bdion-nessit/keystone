@@ -20,7 +20,7 @@ jQuery(function($) {
 
 	//Close the modal when clicking "Close" or the background behind it
 	$('.modal-content .js-close-x').click(function() {
-		$(this).parent().parent().hide();
+		$(this).parents('.modal').hide();
 	});
 	$('.js-modal-background').click(function() {
 		$(this).parent().hide();
