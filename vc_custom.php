@@ -1175,6 +1175,69 @@ function joints_vc_custom_posts_widget($atts) {
   return $output . '</div>';
 }
 
+//Separate function because it's used by multiple widgets
+function custom_hover_colors($atts, $style_id, $widget_atts) {
+	global $vc_custom_styles;
+	
+	$vc_custom_styles .= '.linkable_column:hover .' . $style_id . ',
+	.' . $style_id . ':hover {' . 
+            (isset($atts['hover_text_color']) ? 'color: ' . $atts['hover_text_color'] . ' !important;' : '') .
+            (isset($atts['hover_border_color']) ? 'border-color: ' . $atts['hover_border_color'] . ' !important;' : '') .
+            (isset($atts['hover_bg_color']) ? 'background-color: ' . $atts['hover_bg_color'] . ' !important;' : '') .
+          '}' . PHP_EOL;
+	
+	//$widget_atts['content'] .= $widget_atts['hover_anim'];
+      switch($widget_atts['hover_anim']) {
+
+        case 'hover-fill-down partial':
+          $vc_custom_styles .= (isset($atts['hover_border_color']) ? '.' . $style_id . ':hover.hover-fill-down.partial:before {
+            border-width: 1px;
+            border-style: solid;
+            border-color: ' . $atts['hover_border_color'] . ';
+          }' . PHP_EOL : '');
+          break;
+
+        case 'hover-underline-slide-left-half':
+          $vc_custom_styles .= (isset($atts['hover_text_color']) ? '.linkable_column:hover .' . $style_id . '.hover-underline-slide-left-half a:before, 
+		  .linkable_column:hover .' . $style_id . '.hover-underline-slide-left-half button:before,
+		  .' . $style_id . ':hover.hover-underline-slide-left-half a:before, 
+          .' . $style_id . ':hover.hover-underline-slide-left-half button:before  {
+		  	background-color: ' . $atts['hover_text_color'] . ' !important;
+          }' . PHP_EOL . 
+			'.linkable_column:hover .' . $style_id . '.hover-underline-slide-left-half a:after,
+			.linkable_column:hover .' . $style_id . '.hover-underline-slide-left-half button:after, 
+			.' . $style_id . ':hover.hover-underline-slide-left-half a:after, 
+			.' . $style_id . ':hover.hover-underline-slide-left-half button:after  {
+				border-color: ' . $atts['hover_text_color'] . ' !important;
+          }' . PHP_EOL : '');
+          break;
+      }
+        
+        //styles shared across animation types
+		if(isset($atts['hover_bg_color'])) {
+			if(preg_match("/gradient/", $widget_atts['hover_anim'])) {
+				$direction = '';
+				switch($widget_atts['hover_anim']) {
+					case 'hover-fill-right gradient':
+						$direction = 'right';
+						break;
+				}
+				$vc_custom_styles .= '.linkable_column:hover .' . $style_id . ', 
+				.' . $style_id . ':hover:before {
+					background: linear-gradient(to ' . $direction . ', ' . $atts['hover_bg_color'] . ' 0, ' . $atts['hover_bg_color'] . ' 30%, rgba(0, 0, 0, 0) 60%) !important;
+				}' . PHP_EOL;
+			}	
+			else {
+				$vc_custom_styles .= '.linkable_column:hover .' . $style_id . ', 
+				.' . $style_id . ':hover:before {
+					background-color: ' . $atts['hover_bg_color'] . ' !important;
+				}' . PHP_EOL;
+			}
+	  	}
+	
+	return $widget_atts;
+}
+
 function joints_custom_vc_button($atts) {
     
     $class = (isset($atts['el_class']) ? $atts['el_class'] : "");
@@ -1247,54 +1310,8 @@ function joints_custom_vc_button($atts) {
       
     if($atts['hover_color'] === 'custom') {
         
-	$button_atts['content'] .= $button_atts['hover_anim'];
-      switch($button_atts['hover_anim']) {
-
-        case 'hover-fill-right':
-		case 'hover-fill-right gradient':
-        case 'hover-fill-up':
-          $vc_custom_styles .= '.' . $style_id . ':hover {' . 
-            (isset($atts['hover_text_color']) ? 'color: ' . $atts['hover_text_color'] . ' !important;' : '') .
-            (isset($atts['hover_border_color']) ? 'border-color: ' . $atts['hover_border_color'] . ' !important;' : '') .
-            (isset($atts['hover_bg_color']) ? 'background-color: ' . $atts['hover_bg_color'] . ' !important;' : '') .
-          '}' . PHP_EOL;
-          break;
-
-        case 'hover-fill-down partial':
-          $vc_custom_styles .= (isset($atts['hover_border_color']) ? '.' . $style_id . ':hover.hover-fill-down.partial:before {
-            border-width: 1px;
-            border-style: solid;
-            border-color: ' . $atts['hover_border_color'] . ';
-          }' . PHP_EOL : '');
-          break;
-
-        case 'hover-underline-slide-left-half':
-          $vc_custom_styles .= (isset($atts['hover_text_color']) ? '.' . $style_id . ':hover.hover-underline-slide-left-half a:before, 
-          .' . $style_id . ':hover.hover-underline-slide-left-half button:before  {
-            background-color: ' . $atts['hover_text_color'] . ' !important;
-          }' . PHP_EOL : '');
-          break;
-      }
-        
-        //styles shared across animation types
-		if(isset($atts['hover_bg_color'])) {
-			if(preg_match("/gradient/", $button_atts['hover_anim'])) {
-				$direction = '';
-				switch($button_atts['hover_anim']) {
-					case 'hover-fill-right gradient':
-						$direction = 'right';
-						break;
-				}
-				$vc_custom_styles .= '.' . $style_id . ':hover:before {
-					background: linear-gradient(to ' . $direction . ', ' . $atts['hover_bg_color'] . ' 0, ' . $atts['hover_bg_color'] . ' 30%, rgba(0, 0, 0, 0) 60%) !important;
-				}' . PHP_EOL;
-			}	
-			else {
-				$vc_custom_styles .= '.' . $style_id . ':hover:before {
-					background-color: ' . $atts['hover_bg_color'] . ' !important;
-				}' . PHP_EOL;
-			}
-	  	}
+		$button_atts = custom_hover_colors($atts, $style_id, $button_atts);
+		
     }
       
     //if using pre-set hover colors

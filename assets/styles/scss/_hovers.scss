@@ -114,7 +114,7 @@ Default Styles
 		pointer-events: none;
 	}
 	
-	&.linkable-column {
+	&.linkable_column {
 		&:hover {
 			.custom_button {
 				@extend .custom_button:hover;
