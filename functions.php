@@ -56,7 +56,7 @@ require_once(get_stylesheet_directory() . '/functions/core.php');
 
 //-------End required/included files-------
 
-//-------Begin external scripts-------
+//-------Begin external scripts/styles-------
 
 /**
 add_action('wp_head', 'get_typekit');
@@ -64,6 +64,15 @@ add_action('wp_head', 'get_typekit');
 function get_typekit() {
   echo '<script src="https://use.typekit.net/meu8bxo.js"></script>
   <script>try{Typekit.load({ async: true });}catch(e){}</script>';
+}
+*/
+
+/**
+add_action('wp_head', 'get_google_fonts');
+function get_google_fonts() {
+	?>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+	<?php
 }
 */
 

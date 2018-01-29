@@ -47,6 +47,10 @@ Variables
 	CSS Variables
 	*********************/
 
+:root {
+	
+}
+
 /*********************
 Mix-ins
 *********************/
@@ -965,6 +969,10 @@ Plugin Styles
 			display: block;
 		}
 	}
+	&.hover-underline-slide-left-half {
+		border: none;
+	}
+	
 	a,
 	button {
 		line-height: inherit;

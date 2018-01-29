@@ -431,7 +431,7 @@ function check_permission() {
 add_action('joints_before_nav', 'get_site_logo');
 
 function get_site_logo() {
-	echo '<a href="' . get_home_url() . '" class="site-logo"><img src="' . (file_exists(get_stylesheet_directory_uri() . '/images/logo.png') ? get_stylesheet_directory_uri() . '/images/logo.png' : get_site_icon_url()) . '" alt="' . get_bloginfo('name') . '" /></a>';
+	echo '<a href="' . get_home_url() . '" class="site-logo"><img src="' . (file_exists(get_stylesheet_directory() . '/images/logo.png') ? get_stylesheet_directory_uri() . '/images/logo.png' : get_site_icon_url()) . '" alt="' . get_bloginfo('name') . '" /></a>';
 }
 
 	//-------Begin Intro Section-------

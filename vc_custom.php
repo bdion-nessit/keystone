@@ -1199,6 +1199,22 @@ function joints_custom_vc_button($atts) {
                             $css_class,
                             (!empty($atts['button_display']) ? ' full-width': ""));
 
+	  //get custom styles variable to be loaded in the site footer
+      global $vc_custom_styles;
+        
+      $vc_custom_styles = (!empty($vc_custom_styles) ? $vc_custom_styles : "");
+        
+        //create unique class for style
+      $style_id = 'vc-' . preg_replace("/\./", '', uniqid('', true));
+        
+        //check if class already exists
+        //if so, create a new one until the result is unique
+      while(strpos($vc_custom_styles, $style_id) !== false) {
+        $style_id = 'vc-' . preg_replace("/\./", '', uniqid('', true));
+      }
+
+      $classes_arr[] = $style_id;
+	
   //Format button content
   switch($atts['content_type']) {
     case 'text': 
@@ -1231,22 +1247,6 @@ function joints_custom_vc_button($atts) {
       
     if($atts['hover_color'] === 'custom') {
         
-        //get custom styles variable to be loaded in the site footer
-      global $vc_custom_styles;
-        
-      $vc_custom_styles = (!empty($vc_custom_styles) ? $vc_custom_styles : "");
-        
-        //create unique class for style
-      $style_id = 'vc-' . preg_replace("/\./", '', uniqid('', true));
-        
-        //check if class already exists
-        //if so, create a new one until the result is unique
-      while(strpos($vc_custom_styles, $style_id) !== false) {
-        $style_id = 'vc-' . preg_replace("/\./", '', uniqid('', true));
-      }
-
-      $classes_arr[] = $style_id;
-        
 	$button_atts['content'] .= $button_atts['hover_anim'];
       switch($button_atts['hover_anim']) {
 
@@ -1260,8 +1260,8 @@ function joints_custom_vc_button($atts) {
           '}' . PHP_EOL;
           break;
 
-        case 'hover-partial-fill-down':
-          $vc_custom_styles .= (isset($atts['hover_border_color']) ? '.' . $style_id . ':hover.hover-partial-fill-down:before {
+        case 'hover-fill-down partial':
+          $vc_custom_styles .= (isset($atts['hover_border_color']) ? '.' . $style_id . ':hover.hover-fill-down.partial:before {
             border-width: 1px;
             border-style: solid;
             border-color: ' . $atts['hover_border_color'] . ';
@@ -1269,9 +1269,9 @@ function joints_custom_vc_button($atts) {
           break;
 
         case 'hover-underline-slide-left-half':
-          $vc_custom_styles .= (isset($atts['hover_bg_color']) ? '.' . $style_id . ':hover.hover-underline-slide-left-half a:before, 
+          $vc_custom_styles .= (isset($atts['hover_text_color']) ? '.' . $style_id . ':hover.hover-underline-slide-left-half a:before, 
           .' . $style_id . ':hover.hover-underline-slide-left-half button:before  {
-            background-color: ' . $atts['hover_bg_color'] . ' !important;
+            background-color: ' . $atts['hover_text_color'] . ' !important;
           }' . PHP_EOL : '');
           break;
       }
@@ -1302,6 +1302,13 @@ function joints_custom_vc_button($atts) {
       $button_atts['hover_color'] = $atts['hover_color'];
     }
   }
+	
+	if(!empty($atts['color'])) {
+		$vc_custom_styles .= '.' . $style_id . '.hover-underline-slide-left-half a:before, 
+		.' . $style_id . '.hover-underline-slide-left-half button:before {
+			background-color: ' . $atts['color'] . ';
+		}' . PHP_EOL;
+	}
 	
 	$button_atts['data'] = array();
 

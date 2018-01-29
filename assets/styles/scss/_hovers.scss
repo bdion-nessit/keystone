@@ -33,12 +33,14 @@ Mix-ins
 			border-color: $color !important;
 			background-color: $color !important;
 		}
-		&.hover-partial-fill-down {
+		&.hover-fill-down.partial {
 			&:before {
 				border: 1px solid $color;
 			}
 		}
 		&.hover-underline-slide-left-half {
+			color: $color2 !important;
+			
 			a,
 			button {
 				&:before {
@@ -110,6 +112,33 @@ Default Styles
 		position: absolute;
 		z-index: 1;
 		pointer-events: none;
+	}
+	
+	&.linkable-column {
+		&:hover {
+			.custom_button {
+				@extend .custom_button:hover;
+				
+				&.hover-fill-up {
+					@extend .hover-fill-up:hover
+				}
+				&.hover-fill-right {
+					@extend .hover-fill-right:hover
+				}
+				&.hover-fill-down {
+					@extend .hover-fill-down:hover
+				}
+				&.hover-underline-slide-left-half {
+					@extend .hover-underline-slide-left-half:hover;
+				}
+				&.partial {
+					@extend .partial:hover;
+				}
+				&.gradient {
+					@extend .gradient:hover;
+				}
+			}
+		}
 	}
 }
 
