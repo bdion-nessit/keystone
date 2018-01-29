@@ -177,6 +177,17 @@ html {
 	float: none;
 }
 
+img {
+	&.alignleft {
+		float: left;
+		margin-right: 5px;		
+	}
+	&.alignright {
+		float: right;
+		margin-left: 5px;
+	}
+}
+
 /*********************
 Link Styles
 *********************/
