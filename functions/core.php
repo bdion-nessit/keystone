@@ -433,6 +433,10 @@ function check_permission() {
 	$user = wp_get_current_user();
 	$logged = is_user_logged_in();
 	
+	if(empty($permission)) {
+		return;
+	}
+	
 	switch($permission) {
 		case 'user':
 			if(!$logged) {
@@ -728,3 +732,11 @@ function get_primary_sidebar() {
 }
 
 //-------End Sidebar
+
+//-------Being Site Footer
+
+add_action('joints_inner_footer', 'echo_open_vc_row_wrapper', 2);
+
+add_action('joints_inner_footer', 'echo_close_vc_row_wrapper', 19);
+
+//-------End Site Footer
