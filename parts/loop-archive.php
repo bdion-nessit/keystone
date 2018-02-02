@@ -4,22 +4,29 @@
  *
  * Used for single, index, archive, search.
  */
+
+//Remove header elements intended for single pages
+remove_action('joints_entry_header', 'entry_header_row_open', 3);
+remove_action('joints_entry_header', 'get_entry_header', 9);
+remove_action('joints_entry_header', 'entry_header_row_close', 15);
+
+add_action('joints_entry_header', 'get_archive_title');
+add_action('joints_entry_header', 'get_byline');
 ?>
+<article id="post-<?php the_ID(); ?>" <?php post_class(''); ?> role="article">	
+	<section class="post-content">
+		<div class="vc_row vc_row-o-equal-height vc_row-flex">
+			<div class="vc_column_container vc_col-sm-12">	
+				<div class="vc_column-inner">	
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(''); ?> role="article">					
-	<div class="vc_row">
-		<header class="article-header">
-			<h2><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
-			<?php get_template_part( 'parts/content', 'byline' ); ?>
-		</header> <!-- end article header -->
-
-		<section class="entry-content" itemprop="articleBody">
-			<a href="<?php the_permalink() ?>"><?php the_post_thumbnail('full'); ?></a>
-			<?php the_content('<button class="tiny">' . __( 'Read more...', 'jointswp' ) . '</button>'); ?>
-		</section> <!-- end article section -->
-
-		<footer class="article-footer">
-			<p class="tags"><?php the_tags('<span class="tags-title">' . __('Tags:', 'jointstheme') . '</span> ', ', ', ''); ?></p>
-	</footer> <!-- end article footer -->	
-	</div>			    						
+					<?php 
+					do_action('joints_entry_header'); //Default actions defined in core.php
+					do_action('joints_entry_content'); //Default actions defined in core.php
+					do_action('joints_entry_footer'); //Default actions defined in core.php
+					?>
+					
+				</div>
+			</div>
+		</div>
+	</section>		    						
 </article> <!-- end article -->

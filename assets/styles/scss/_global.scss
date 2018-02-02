@@ -366,6 +366,21 @@ Navigation Styles
 	&:after {
 		top: 11px;
 	}
+	
+	&.active {
+		background-color: transparent;
+		
+		&:before {
+			-webkit-transform: rotate(45deg);
+			bottom: 0;
+			transform: rotate(45deg);
+		}
+		&:after {
+			-webkit-transform: rotate(-45deg);
+			top: 0;
+			transform: rotate(-45deg);
+		}
+	}
 }
 .hamburger-menu,
 .hamburger-menu:before,
@@ -375,6 +390,15 @@ Navigation Styles
 	width: 30px;
 	display: inline-block;
 	transition: all .5s;
+}
+
+.hamburger-menu {
+	width: 30px;
+}
+
+.hamburger-menu:before,
+.hamburger-menu:after {
+	width: 100%;
 }
 
 /*********************

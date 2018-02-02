@@ -31,6 +31,20 @@ function set_vc_defaults() {
 
 //--------Create custom widgets--------
 
+$hover_anims = array(
+	'None' => '',
+	'Fill Up' => 'hover-fill-up',
+	'Fill Right' => 'hover-fill-right',
+	'Fill Right Gradient' => 'hover-fill-right gradient',
+	'Partial Fill Down' => 'hover-fill-down partial',
+	'Underline Slide Out Left 50%' => 'hover-underline-slide-left-half',
+);
+$hover_colors = array(
+	'Green' => 'hover-green',
+	'White' => 'hover-white',
+	'Custom Colors' => 'custom',
+);
+
 add_action('vc_before_init', 'vc_single_item_slider_init');
 add_action('vc_before_init', 'vc_multi_item_slider_init');
 add_action('vc_before_init', 'vc_linkable_column');
@@ -250,24 +264,77 @@ function vc_multi_item_slider_init() {
   }
 }
 function vc_linkable_column() {
-  vc_map(array(
-    'name' => 'Linkable Column',
-    'base' => 'vc_linkable_column',
-    'icon' => 'vc_linkable_column_icon',
-    'as_parent' => array('except' => ''),
-    'content_element' => true,
-    'show_settings_on_create' => true,
-    'is_container' => true,
-    'params' => array(
-      array(
-        "type" => "vc_link",
-        'admin_label' => true,
-        "class" => "",
-        "heading" => 'URL (Link)',
-        "param_name" => "link",
-        "value" => '',
-        'group' => 'General',
-        ),
+	global $hover_anims;
+	global $hover_colors;
+	
+	vc_map(array(
+		'name' => 'Linkable Column',
+		'base' => 'vc_linkable_column',
+		'icon' => 'vc_linkable_column_icon',
+		'as_parent' => array('except' => ''),
+		'content_element' => true,
+		'show_settings_on_create' => true,
+		'is_container' => true,
+		'params' => array(
+			array(
+				"type" => "vc_link",
+				'admin_label' => true,
+				"class" => "",
+				"heading" => 'URL (Link)',
+				"param_name" => "link",
+				"value" => '',
+				'group' => 'General',
+				),
+			array(
+				'type' => 'dropdown',
+				'heading' => 'Animation on Hover',
+				'param_name' => 'hover_anim',
+				'class' => '',          
+				'group' => 'General',
+				'value' => $hover_anims,
+			),
+			array(
+              'type' => 'colorpicker',
+              'heading' => 'Text Color (on hover)',
+              'param_name' => 'hover_text_color',
+              'group' => 'General',
+              'dependency' => array(
+                'element' => 'hover_color',
+                'value' => 'custom',
+                ),
+             ),
+          array(
+              'type' => 'colorpicker',
+              'heading' => 'Background Color (on hover)',
+              'param_name' => 'hover_bg_color',
+              'group' => 'General',
+              'dependency' => array(
+                'element' => 'hover_color',
+                'value' => 'custom',
+                ),
+             ),
+          array(
+              'type' => 'colorpicker',
+              'heading' => 'Border Color (on hover)',
+              'param_name' => 'hover_border_color',
+              'group' => 'General',
+              'dependency' => array(
+                'element' => 'hover_color',
+                'value' => 'custom',
+                ),
+             ),
+			array(
+				'type' => 'dropdown',
+				'heading' => 'Hover Color',
+				'param_name' => 'hover_color',
+				'group' => 'General',
+				'value' => $hover_colors,
+				'std' => '',
+				'dependency' => array(
+					'element' => 'hover_anim',
+					'not_empty' => true,
+				),
+			),
       array(
         'type' => 'textfield',
         'heading' => 'Element ID',
@@ -669,6 +736,9 @@ function vc_custom_posts_widget_init() {
 }
 
 function vc_custom_button_init() {
+	global $hover_anims;
+	global $hover_colors;
+	
   if(!function_exists('vc_map')) {
     return;
   }
@@ -683,10 +753,11 @@ function vc_custom_button_init() {
 				"class" => "",
 				"heading" => 'Button Content Type',
 				"param_name" => "content_type",
-              'group' => 'General',
-              'value' => array(
-                'Text' => 'text',
-                'Image' => 'img',
+				'group' => 'General',
+				'value' => array(
+					'Text' => 'text',
+                	'Image' => 'img',
+					'Textbox' => 'textbox',
               ),
               'std' => 'Text',
            ),
@@ -720,6 +791,21 @@ function vc_custom_button_init() {
                 ),
               ),
             ),
+			array(
+              "type" => "textarea_html",
+              "class" => "",
+              "heading" => 'Button content',
+              'admin_label' => true,
+              "param_name" => "content",
+              "value" => '',
+              'group' => 'General',
+              'dependency' => array(
+                'element' => 'content_type',
+                'value' => array(
+                  'textbox',
+                  ),
+                ),
+           ),
           /**
           array(
               "type" => "dropdown",
@@ -753,38 +839,26 @@ function vc_custom_button_init() {
               ),
             'std' => '',
             ),
-          array(
-            'type' => 'dropdown',
-            'heading' => 'Animation on Hover',
-            'param_name' => 'hover_anim',
-            'class' => '',          
-            'group' => 'General',
-            'value' => array(
-              'None' => '',
-              'Fill Up' => 'hover-fill-up',
-				'Fill Right' => 'hover-fill-right',
-				'Fill Right Gradient' => 'hover-fill-right gradient',
-              'Partial Fill Down' => 'hover-fill-down partial',
-              'Underline Slide Out Left 50%' => 'hover-underline-slide-left-half',
-              ),
-            ),
-          array(
-			  'type' => 'dropdown',
-			  'heading' => 'Hover Color',
-            'param_name' => 'hover_color',
-            'group' => 'General',
-            'value' => array(
-              'Gray' => 'hover-gray',
-              'White w/ Blue Text' => 'hover-blue-inverse',
-              'White' => 'hover-white',
-              'Custom Colors' => 'custom',
-              ),
-            'std' => '',
-            'dependency' => array(
-              'element' => 'hover_anim',
-              'not_empty' => true,
-              ),
-            ),
+			array(
+				'type' => 'dropdown',
+				'heading' => 'Animation on Hover',
+				'param_name' => 'hover_anim',
+				'class' => '',          
+				'group' => 'General',
+				'value' => $hover_anims,
+			),
+			array(
+				'type' => 'dropdown',
+				'heading' => 'Hover Color',
+				'param_name' => 'hover_color',
+				'group' => 'General',
+				'value' => $hover_colors,
+				'std' => '',
+				'dependency' => array(
+					'element' => 'hover_anim',
+					'not_empty' => true,
+				),
+			),
           array(
               'type' => 'colorpicker',
               'heading' => 'Text Color (on hover)',
@@ -827,8 +901,9 @@ function vc_custom_button_init() {
             'param_name' => 'button_display',
             'group' => 'General',
             'value' => array(
-              'Inline-block' => 'inline-block',
-              'Block' => 'block',
+            	'Inline-block' => 'inline-block',
+            	'Block' => 'block',
+				'Flex' => 'flex',
               ),
             'std' => '',
             ),
@@ -1176,8 +1251,27 @@ function joints_vc_custom_posts_widget($atts) {
 }
 
 //Separate function because it's used by multiple widgets
-function custom_hover_colors($atts, $style_id, $widget_atts) {
+function get_unique_style_id() {
 	global $vc_custom_styles;
+	
+	$vc_custom_styles = (!empty($vc_custom_styles) ? $vc_custom_styles : "");
+	
+	  //create unique class for style
+      $style_id = 'vc-' . preg_replace("/\./", '', uniqid('', true));
+        
+        //check if class already exists
+        //if so, create a new one until the result is unique
+      while(strpos($vc_custom_styles, $style_id) !== false) {
+        $style_id = 'vc-' . preg_replace("/\./", '', uniqid('', true));
+      }
+	return $style_id;
+}
+function custom_hover_colors($atts, $style_id, $widget_atts=array()) {
+	global $vc_custom_styles;
+	
+	if(empty($widget_atts)) {
+		$widget_atts = $atts;
+	}
 	
 	$vc_custom_styles .= '.linkable_column:hover .' . $style_id . ',
 	.' . $style_id . ':hover {' . 
@@ -1238,7 +1332,7 @@ function custom_hover_colors($atts, $style_id, $widget_atts) {
 	return $widget_atts;
 }
 
-function joints_custom_vc_button($atts) {
+function joints_custom_vc_button($atts, $content) {
     
     $class = (isset($atts['el_class']) ? $atts['el_class'] : "");
     
@@ -1261,45 +1355,40 @@ function joints_custom_vc_button($atts) {
                             $class,
                             $css_class,
                             (!empty($atts['button_display']) ? ' full-width': ""));
-
+	
 	  //get custom styles variable to be loaded in the site footer
       global $vc_custom_styles;
         
-      $vc_custom_styles = (!empty($vc_custom_styles) ? $vc_custom_styles : "");
-        
-        //create unique class for style
-      $style_id = 'vc-' . preg_replace("/\./", '', uniqid('', true));
-        
-        //check if class already exists
-        //if so, create a new one until the result is unique
-      while(strpos($vc_custom_styles, $style_id) !== false) {
-        $style_id = 'vc-' . preg_replace("/\./", '', uniqid('', true));
-      }
+      $style_id = get_unique_style_id();
 
       $classes_arr[] = $style_id;
-	
+
   //Format button content
-  switch($atts['content_type']) {
-    case 'text': 
-      $button_atts['content'] = (isset($atts['title']) ? $atts['title'] : "");
-      break;
-    case 'img': 
-      if(isset($atts['img'])) {
-        $imgArr = explode(',', $atts['img']);
-        $button_atts['content'] = wp_get_attachment_image($imgArr[0], 'full');
+	switch($atts['content_type']) {
+    	case 'text': 
+			$button_atts['content'] = (isset($atts['title']) ? $atts['title'] : "");
+			break;
+		case 'img': 
+			if(isset($atts['img'])) {
+				$imgArr = explode(',', $atts['img']);
+				$button_atts['content'] = wp_get_attachment_image($imgArr[0], 'full');
 
-        //If a second image (for hover state) is set
-        if(!empty($imgArr[1])) {
-          $button_atts['content'] .= wp_get_attachment_image($imgArr[1], 'full');
+				//If a second image (for hover state) is set
+				if(!empty($imgArr[1])) {
+					$button_atts['content'] .= wp_get_attachment_image($imgArr[1], 'full');
 
-          $classes_arr[] = 'has-hover';
-        }
-      }
-      else {
-        $button_atts['content'] = '';
-      }
-      break;
-  }
+					$classes_arr[] = 'has-hover';
+				}
+			}
+			else {
+				$button_atts['content'] = '';
+			}
+			break;
+		case 'textbox':
+			$button_atts['content'] = do_shortcode($content);
+			$classes_arr[] = 'textbox';
+			break;
+	}
 
   $button_atts['element_id'] = (isset($atts['elem_id']) ? $atts['elem_id'] : "");
 
@@ -1320,23 +1409,38 @@ function joints_custom_vc_button($atts) {
     }
   }
 	
-	if(!empty($atts['color'])) {
-		$vc_custom_styles .= '.' . $style_id . '.hover-underline-slide-left-half a:before, 
-		.' . $style_id . '.hover-underline-slide-left-half button:before {
-			background-color: ' . $atts['color'] . ';
-		}' . PHP_EOL;
-	}
-	
 	$button_atts['data'] = array();
 
 	if(!empty($atts['button_modal'])) {
 		$button_atts['data']['modal'] = $atts['button_modal'];
 	}
 	
+	if(!empty($atts['color'])) {
+		$vc_custom_styles .= '.' . $style_id . '.hover-underline-slide-left-half a:before, 
+		.' . $style_id . '.hover-underline-slide-left-half button:before {
+			background-color: ' . $atts['color'] . ';
+		}' . PHP_EOL . 
+		'.' . $style_id . '.hover-underline-slide-left-half a:after, 
+		.' . $style_id . '.hover-underline-slide-left-half button:after {
+			border-color: ' . $atts['color'] . ';
+		}' . PHP_EOL;
+	}
+	
+	$wrapper_display = '';
+	if(!empty($atts['button_display'])) {
+		$wrapper_display = 'display: ' . $atts['button_display'] . ';';
+		
+		if($atts['button_display'] === 'flex') {
+			$wrapper_display .= ' flex-grow: 1; flex-shrink: 1;';
+			
+			$atts['button_display'] = 'block; width: 100%';
+		}
+	}
+	
   	$button_atts['class'] = implode(' ', $classes_arr);
   	$button_atts['style'] = '';
   	$button_atts['style'] = (!empty($atts['color']) ? 'color: ' . $atts['color'] . ';' : "") . (!empty($atts['button_display']) ? ' display: ' . $atts['button_display'] . ';' : "");
-	return '<div class="wpb_custom_button" style="' . (!empty($atts['button_display']) ? 'display: ' . $atts['button_display'] . ';' : "") . '">' . get_custom_button($button_atts) . '</div>';
+	return '<div class="wpb_custom_button" style="' . $wrapper_display . '">' . get_custom_button($button_atts) . '</div>';
 }
 function joints_blockquote($atts) {
 	$classes = array('vc_blockquote');
