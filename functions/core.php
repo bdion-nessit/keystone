@@ -182,6 +182,32 @@ class Joints_Core_Custom_Options {
              'description' => 'Set the column width of the primary sidebar.  It\'s recommended that the total column widths equal 12.',
          ) 
        );
+	   
+	   //Create setting and control for the number of footer widget columns
+       $wp_customize->add_setting( 'footer_widget_columns', 
+         array(
+             'default'    => '2', 
+             'type'       => 'option', 
+             'capability' => 'edit_theme_options',
+             'transport'  => 'postMessage', 
+         ) 
+      );       
+      $wp_customize->add_control(
+         'footer_widget_columns_control', 
+         array(
+             'label'      => __( 'Number of Columns for Widgets in Footer', 'joints' ), 
+             'settings'   => 'footer_widget_columns', 
+             'priority'   => 11, 
+             'section'    => 'site_layout', 
+             'type' => 'select',
+             'default' => '2',
+             'choices' => array(
+                 '2' => '2',
+                 '4' => '4',
+             ),
+             'description' => 'Set the column width of the primary sidebar.  It\'s recommended that the total column widths equal 12.',
+         ) 
+       );
      
 
       //4. We can also change built-in settings by modifying properties. For instance, let's make some stuff use live preview JS...
