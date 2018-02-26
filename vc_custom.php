@@ -1335,6 +1335,7 @@ function custom_hover_colors($atts, $style_id, $widget_atts=array()) {
 function joints_custom_vc_button($atts, $content) {
     
     $class = (isset($atts['el_class']) ? $atts['el_class'] : "");
+	$wrapper_classes = array();
     
   //Get the visual composer styles
   $css = (isset($atts['css']) ? $atts['css'] : "");
@@ -1435,12 +1436,15 @@ function joints_custom_vc_button($atts, $content) {
 			
 			$atts['button_display'] = 'block; width: 100%';
 		}
+		elseif($atts['button_display'] === 'block') {
+			$wrapper_classes[] = 'has-display-block';
+		}
 	}
 	
   	$button_atts['class'] = implode(' ', $classes_arr);
   	$button_atts['style'] = '';
   	$button_atts['style'] = (!empty($atts['color']) ? 'color: ' . $atts['color'] . ';' : "") . (!empty($atts['button_display']) ? ' display: ' . $atts['button_display'] . ';' : "");
-	return '<div class="wpb_custom_button" style="' . $wrapper_display . '">' . get_custom_button($button_atts) . '</div>';
+	return '<div class="wpb_custom_button ' . implode(' ', $wrapper_classes) . '" style="' . $wrapper_display . '">' . get_custom_button($button_atts) . '</div>';
 }
 function joints_blockquote($atts) {
 	$classes = array('vc_blockquote');
