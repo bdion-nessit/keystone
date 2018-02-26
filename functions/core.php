@@ -567,7 +567,7 @@ function joints_loop() {
   		while (have_posts()) { 
   			the_post();
             
-    		if(get_post_type() === 'page') {
+    		if(get_post_type() === 'page' && !is_search()) {
         		get_template_part( 'parts/loop', 'page' );
       		}
       		elseif(is_single()) {
