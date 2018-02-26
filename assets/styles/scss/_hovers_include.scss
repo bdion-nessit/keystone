@@ -1,0 +1,317 @@
+/*********************
+Variables
+*********************/
+
+	/*********************
+	SCSS Variables
+	*********************/
+
+$edge_distance: -2px;
+$gradient_distance: -125%;
+$standard_transition_duration: .2s;
+
+	/*********************
+	CSS Variables
+	*********************/
+
+:root {
+	--edge_distance: -2px;
+	--gradient_distance: -125%;
+	--standard_transition_duration: .2s;
+}
+
+/*********************
+Mix-ins
+*********************/
+
+@mixin hover-color($color, $color2:#fff, $direction:null) {
+	&:hover,
+	&.active {
+		&.hover-fill-up,
+		&.hover-fill-right {
+			color: $color2 !important;
+			border-color: $color !important;
+			background-color: $color !important;
+		}
+		&.hover-fill-down.partial {
+			&:before {
+				border: 1px solid $color;
+			}
+		}
+		&.hover-underline-slide-left-half {
+			color: $color2 !important;
+			
+			a,
+			button {
+				&:before {
+					background-color: $color;
+				}
+			}
+		}
+		&:before {
+			background-color: $color !important;
+		}
+	}
+	
+	&.gradient {
+		&.hover-fill-right {
+			@include gradient-w-direction($color, to right);
+		}
+		&.hover-fill-up {
+			@include gradient-w-direction($color, to top);
+		}
+		
+	}
+}
+@mixin hover-color-inverse($color) {
+	&.hover-fill-right {
+		&:before {
+			background-color: #fff !important;
+		}
+	}
+	&:hover {
+		color: $color !important;
+		&.hover-fill-up {
+			background-color: #fff !important;
+			border-color: #fff !important;
+		}
+		&.hover-partial-fill-down {
+			&:before {
+				border: 1px solid #fff;
+			}
+		}
+		&:before {
+			background-color: #fff;
+		}
+	}
+}
+
+@mixin gradient-w-direction($color, $direction) {
+	&:hover {
+		&:before {
+			background: $color !important;
+			background: linear-gradient($direction, $color 0, $color 28%, rgba(0, 0, 0, 0) 62%) !important;
+		}
+	}
+}
+
+/*********************
+Default Styles
+*********************/
+
+.hover-anim {
+	position: relative;
+	z-index: 1;
+	a,
+	button {
+		position: relative;
+		z-index: 2;
+	}
+	&:before {
+		content: "";
+		position: absolute;
+		z-index: 1;
+		pointer-events: none;
+	}
+	
+	&.linkable_column {
+		&:hover {
+			.custom_button {
+				@extend .custom_button:hover;
+				
+				&.hover-fill-up {
+					@extend .hover-fill-up:hover
+				}
+				&.hover-fill-right {
+					@extend .hover-fill-right:hover
+				}
+				&.hover-fill-down {
+					@extend .hover-fill-down:hover
+				}
+				&.hover-underline-slide-left-half {
+					@extend .hover-underline-slide-left-half:hover;
+				}
+				&.partial {
+					@extend .partial:hover;
+				}
+				&.gradient {
+					@extend .gradient:hover;
+				}
+			}
+		}
+	}
+}
+
+.has-hover {
+	&:hover {
+		img {
+			&:first-of-type {
+				display: none;
+			}
+			&:nth-of-type(2) {
+				display: inline-block;
+			}
+		}
+	}
+}
+
+.hover-fill-up,
+.hover-fill-right,
+.hover-fill-down {
+	overflow: hidden;
+	position: relative;
+	&:before {
+		content: "";
+		position: absolute;
+		z-index: 1;
+		opacity: 0;
+		
+		left: $edge_distance;
+		left: var(--edge_distance);
+		right: $edge_distance;
+		right: var(--edge_distance);
+		top: $edge_distance;
+		top: var(--edge_distance);
+		bottom: $edge_distance;
+		bottom: var(--edge_distance);
+		
+		-webkit-transition: opacity $standard_transition_duration, top 0s $standard_transition_duration, right 0s $standard_transition_duration, bottom 0s $standard_transition_duration, background-color 0s $standard_transition_duration;
+		transition: opacity $standard_transition_duration, top 0s $standard_transition_duration, right 0s $standard_transition_duration, bottom 0s $standard_transition_duration, background-color 0s $standard_transition_duration;
+		transition: opacity var(--standard_transition_duration), top 0s var(--standard_transition_duration), right top 0s var(--standard_transition_duration), bottom 0s var(--standard_transition_duration), background-color 0s var(--standard_transition_duration);
+	}
+	&.active,
+	&:hover {
+		-webkit-transition: background-color .1s $standard_transition_duration;
+	}
+	&.active,
+	&:hover {
+		transition: background-color .1s $standard_transition_duration;
+		transition: background-color .1s var(--standard_transition_duration);
+		&:before {
+			opacity: 1;
+		}
+	}
+}
+.hover-fill-up {
+	&:before {
+		top: 100%;
+	}
+	&.active,
+	&:hover {
+		&:before {
+			-webkit-transition: top $standard_transition_duration;
+			
+			top: $edge_distance;
+			top: var(--edge_distance);
+			
+			transition: top $standard_transition_duration;
+			transition: top var(--standard_transition_duration);
+		}
+	}
+	&.gradient {
+		&.active,
+		&:hover {
+			&:before {
+				top: $gradient_distance;
+				top: var(--gradient_distance);
+			}
+		}
+	}
+}
+.hover-fill-right {
+	&:before {
+		right: 100%;;
+	}
+	&.active,
+	&:hover {
+		&:before {
+			-webkit-transition: right $standard_transition_duration;
+			
+			right: $edge_distance;
+			right: var(--edge_distance);
+			
+			transition: right $standard_transition_duration;
+			transition: right var(--standard_transition_duration);
+		}
+	}
+	&.gradient {
+		&.active,
+		&:hover {
+			&:before {
+				right: $gradient_distance;
+				right: var(--gradient_distance);
+			}
+		}
+	}
+}
+
+.hover-fill-down {
+	&:before {
+		bottom: 100%;
+	}
+	&.active,
+	&:hover {
+		&:before {
+			-webkit-transition: bottom $standard_transition_duration;
+			
+			bottom: $edge_distance;
+			bottom: var(--edge_distance);
+			
+			transition: bottom $standard_transition_duration;
+			transition: bottom var(--standard_transition_duration);
+		}
+	}
+	
+	&.partial {
+		&.active,
+		&:hover {
+			&:before {
+				bottom: 5px;
+			}
+		}
+	}
+}
+
+.hover-underline-slide-left-half {
+	&.black {
+		a,
+		button {
+			&:before {
+				background-color: #000;
+			}
+		}
+	}
+	&.white {
+		a,
+		button {
+			&:before {
+				background-color: #fff;
+			}
+		}
+	}
+	a,
+	button {
+		padding-left: 0;
+		padding-right: 0;
+		margin: 0 27px;
+		&:before {
+			content: "";
+			display: inline-block;
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			height: 2px;
+			-webkit-transition: left .8s, background-color .8s;
+			transition-timing-function: cubic-bezier(0,0,0,1);
+			transition: left .8s, background-color .8s;
+		}
+	}
+	&:hover {
+		a, button {
+			&:before {
+				left: 50%;
+			}
+		}
+	}
+}

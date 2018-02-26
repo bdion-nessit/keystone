@@ -35,6 +35,8 @@
 	</head>
 			
 	<body <?php body_class(); ?>>
+		
+		<div class="preload"></div>
 
 		<div class="off-canvas-wrapper">
 			

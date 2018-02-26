@@ -986,18 +986,7 @@ Plugin Styles
 .custom_button {
 	cursor: pointer;
 	border-width: 1px;
-	&.has-hover {
-		&:hover {
-			img {
-				&:first-of-type {
-					display: none;
-				}
-				&:nth-of-type(2) {
-					display: inline-block;
-				}
-			}
-		}
-	}
+
 	&.full-width {
 		a {
 			display: block;
@@ -1022,13 +1011,8 @@ Plugin Styles
 	}
 }
 
-@import "hovers";
+@import "hovers_include";
 
-/** Demo fill up
-.hover-fill-up:hover {
-	@include hover-color($gray);
-}
-*/
 
 	/*********************
 	Multi-item Slider
