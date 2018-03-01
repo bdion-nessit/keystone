@@ -1602,6 +1602,23 @@ function my_module_add_grid_shortcodes( $shortcodes ) {
     'description' => __( 'Show custom post meta', 'my-text-domain' ),
     'post_type' => Vc_Grid_Item_Editor::postType(),
    );
+	$shortcodes['vc_custom_tax'] = array(
+		'name' => __( 'Custom Taxonomy', 'my-text-domain' ),
+		'base' => 'vc_custom_tax',
+		'category' => __( 'Content', 'my-text-domain' ),
+		'description' => __( 'Get the terms for a custom taxonomy', 'my-text-domain' ),
+		'post_type' => Vc_Grid_Item_Editor::postType(),
+		'params' => array(
+		  array(
+			'type' => 'textfield',
+			'heading' => 'Taxonomy',
+			'param_name' => 'custom_tax',
+			'description' => 'Taxonomy whose terms to display',
+			'group' => 'General',
+			),
+		)
+   );
+	
   return $shortcodes;
 }
  
@@ -1609,6 +1626,7 @@ function my_module_add_grid_shortcodes( $shortcodes ) {
 // output function
 add_shortcode( 'vc_custom_breadcrumbs', 'vc_custom_breadcrumbs_render' );
 add_shortcode( 'vc_custom_author_pic', 'vc_custom_author_pic_render' );
+add_shortcode( 'vc_custom_tax', 'vc_custom_tax' );
 
 function vc_custom_breadcrumbs_render($atts, $content, $tag) {
   return '{{zebreadcrumbs}}';
@@ -1616,11 +1634,18 @@ function vc_custom_breadcrumbs_render($atts, $content, $tag) {
 function vc_custom_author_pic_render($atts, $content, $tag) {
   return '{{author_pic}}';
 }
+function vc_custom_tax($atts, $content, $tag) {
+	return '<p>
+		<strong>Type</strong><br />
+		{{custom_tax' . (!empty($atts['custom_tax']) ? ':' . $atts['custom_tax'] : '') . '}}
+	</p>';
+}
   
 add_filter( 'vc_gitem_template_attribute_post_attr', 'vc_gitem_template_attribute_post_attr', 10, 2 );
 add_filter( 'vc_gitem_template_attribute_custom_meta', 'vc_gitem_template_attribute_custom_meta', 10, 2 );
 add_filter( 'vc_gitem_template_attribute_zebreadcrumbs', 'vc_gitem_template_attribute_zebreadcrumbs', 10, 2 );
 add_filter( 'vc_gitem_template_attribute_author_pic', 'vc_gitem_template_attribute_author_pic', 10, 2 );
+add_filter( 'vc_gitem_template_attribute_custom_tax', 'vc_gitem_template_attribute_custom_tax', 10, 2 );
 
 function vc_gitem_template_attribute_post_attr( $value, $data ) {
   
@@ -1683,5 +1708,31 @@ function vc_gitem_template_attribute_author_pic( $value, $data ) {
   return '<span class="post-author-img">' . 
                           wp_get_attachment_image($author_pic['ID'], 'thumbnail') . 
                         '</span>';
+}
+function vc_gitem_template_attribute_custom_tax( $value, $data ) {
+  //return 'test';
+  /**
+    * @var Wp_Post $post
+    * @var string $data
+    */
+   extract( array_merge( array(
+      'post' => null,
+      'data' => '',
+   ), $data ) );
+	
+	if(empty($data)) {
+		return;
+	}
+	
+	$output = '';
+	$terms = get_the_terms($post->ID, $data);
+	
+	if(!empty($terms)) {
+		foreach($terms as $term) {
+			$output .= $term->name . '<br />';
+		}
+	}
+	
+	return $output;
 }
 
