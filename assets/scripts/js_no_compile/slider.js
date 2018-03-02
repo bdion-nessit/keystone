@@ -181,6 +181,8 @@ jQuery(function($) {
 						}
 					}
 				} 
+				
+				//Don't auto-scroll until user is done scrolling
 				if(scrollDebounce) {
 						clearTimeout(scrollDebounce);
 					}

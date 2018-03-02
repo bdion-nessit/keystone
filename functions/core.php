@@ -367,6 +367,8 @@ function get_multi_slider($atts) {
 	$i = 1;
 	$output = '<div class="multi-slider-wrap">
 		<div class="multi-slider"><!--';
+	
+	//If user has passed items to display via shortcode
 	if(!empty($atts['items'])) {
 		foreach($atts['items'] as $item) {
 			$styles = array();
@@ -400,19 +402,19 @@ function get_multi_slider($atts) {
 			'post_status' => 'publish',
 			'posts_per_page' => -1,
 		);
-	$query1 = new WP_Query($args);
-	if($query1->have_posts()) {
-	  while($query1->have_posts()) {
-		$query1->the_post();
-		$output .= '--><div class="multi-slide multi-slide-' . $i . ' vc_col-sm-3">
-			<div class="multi-slide-inner multi-slide-' . $i . '-inner">' . 
-			get_the_content() . 
-		  '</div>
-		</div><!--';
-		$i++;
+		$query1 = new WP_Query($args);
+		if($query1->have_posts()) {
+		  while($query1->have_posts()) {
+			$query1->the_post();
+			$output .= '--><div class="multi-slide multi-slide-' . $i . ' vc_col-sm-3">
+				<div class="multi-slide-inner multi-slide-' . $i . '-inner">' . 
+				get_the_content() . 
+			  '</div>
+			</div><!--';
+			$i++;
+		  }
 	  }
-  }
-  wp_reset_postdata(); 
+	  wp_reset_postdata(); 
 	}
   $output .= '--></div>
   <div class="multi-controls">
@@ -509,7 +511,7 @@ function open_intro_content_wrappers() {
 	<?php
 }
 
-//Intro content inner hook
+//Intro content inside of intro hook
 function do_intro_content() {
 	do_action('joints_intro_content');
 }
@@ -520,6 +522,7 @@ function get_intro_content() {
 	$page_for_posts_id = get_option('page_for_posts');
     
     //use the id of the blog page (and thus its content), for itself and for archives
+	//Otherwise use null, which WP will default to the current ID
 	$page = (is_home() || is_archive() ? $page_for_posts_id : null);
     
 	echo //(is_front_page() ? '' : get_the_title()) .

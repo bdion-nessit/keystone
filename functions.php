@@ -108,6 +108,7 @@ class Joints_Custom_Options extends Joints_Core_Custom_Options {
             'description' => __('Set standard page layout options', 'joints'), //Descriptive tooltip
          ) 
       );*/
+	   
       /** Example for adding custom setting and control
       $wp_customize->add_setting( 'column_width', //No need to use a SERIALIZED name, as `theme_mod` settings already live under one db record
          array(
@@ -179,7 +180,7 @@ function page_breadcrumbs() {
 	}
 	echo '<div class="page-breadcrumbs">';
 
-	$breadcrumbs = array(); //Initialize breadcrumbs
+	$breadcrumbs = array();
 	$breadcrumbs[] = get_the_title();
     
 	$ancestors = get_post_ancestors($post);
@@ -189,14 +190,14 @@ function page_breadcrumbs() {
 		$breadcrumbs[] = '<a href="' . get_permalink($ancestor) . '">' . get_the_title($ancestor) . '</a>';
 	}
     
-	$breadcrumbs = array_reverse($breadcrumbs); //Reorder to use correct order
+	$breadcrumbs = array_reverse($breadcrumbs); //Reorder to use correct, descending order
     
 	echo implode(' \\ ', $breadcrumbs); //Concatenate the individual breadcrumbs into a single string
 	echo '</div>';
 }
 
-//For modifying nav
-//Sets primary nav to Foundation dropdown by default
+//For modifying WP nav menus
+//By default, formats the main menu to use Foundation layouts for the normal and mobile versions
 add_action('joints_nav', 'call_nav_filter', 3);
 
 function call_nav_filter() {
@@ -213,12 +214,15 @@ function custom_nav_filter($items, $args) {
 	$locations = get_nav_menu_locations();
 	if(!empty($locations['main-nav']) && $locations['main-nav'] === $args->menu->term_id) {
 		global $is_mobile_menu;
+		
+		//Add sub-menu data for foundation menus
+		//The normal main menu will use dropdowns
 		if(!$is_mobile_menu) {
-		  //Add sub-menu data for foundation dropdowns
 			$args->items_wrap = '<ul id="%1$s" class="%2$s horizontal dropdown menu" data-dropdown-menu>%3$s</ul>';
 			$items = preg_replace('/sub\-menu/', 'sub-menu nested menu vertical', $items);
-			$is_mobile_menu = true;
+			$is_mobile_menu = true; //Now that we've displayed the main menu normally, we can display the mobile version
 		}
+		//Mobile version will use drilldowns
 		else {
 		  $args->items_wrap = '<ul id="%1$s" class="%2$s vertical menu drilldown" data-drilldown data-auto-height="true">%3$s</ul>';
 		  $items = preg_replace('/sub\-menu/', 'sub-menu menu vertical', $items);
@@ -228,7 +232,9 @@ function custom_nav_filter($items, $args) {
   return $items;
 }
 
-add_action('wp_footer', 'do_vc_custom_styles'); //Display styles from Visual Composer that can't be set inline
+//Display styles from custom WPB Page Builder widgets that can't be set inline
+//Styles come from global array that is added to by widgets
+add_action('wp_footer', 'do_vc_custom_styles'); 
 
 function do_vc_custom_styles() {
 	global $vc_custom_styles;
@@ -256,37 +262,34 @@ function get_archive_intro() {
 	if(is_tax()) {
 		$slug = $product->slug;
 	}
-	$args = array(
-		'post_name'	=> $slug,
-		'post_type'   => 'page',
-		'post_status' => 'publish',
-		'numberposts' => 1
-	);
-	$pos = 0;
+	
+	$pos = 0; //Current position in string
 	$page = get_page_by_path($slug,OBJECT,'page');
 	if(!empty($page)) {
 		echo '<div class="nm-row">' . 
 			do_shortcode($page->post_content) . 
 		'</div>';
 		
-		//Extract styles from VC shortcode
+		//Extract styles from VC shortcode one by one
 		while(strpos($page->post_content, 'css=', $pos) !== false) {
 			$pos_start = strpos($page->post_content, 'css=', $pos) + 5;
 			$pos = strpos($page->post_content, '"', $pos_start);
 			$archive_css .= substr($page->post_content, $pos_start, $pos - $pos_start) . ' ';
 		}
 	}
-	remove_action('wp_footer', 'get_archive_css');
+	
+	remove_action('wp_footer', 'get_archive_css');  //Ensure that get_archive_css is only called once
 	add_action('wp_footer', 'get_archive_css');
 }
 function get_archive_css() {
 	global $archive_css;
+	
 	echo '<style>' .
 		$archive_css . 
 	'</style>';
 }
 
-add_action('joints_before_nav', 'mobile_menu_hamburger');
+add_action('joints_before_nav', 'mobile_menu_hamburger'); //Default hamburger menu to open/close mobile nav menu
 
 function mobile_menu_hamburger() {
 	echo '<div class="hamburger-menu-wrap" data-target=".top-sidebar">

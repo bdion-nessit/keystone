@@ -29,6 +29,7 @@
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.5",
     "gulp-wp-pot": "^2.0.4",
+    "jest": "^22.4.2",
     "jshint-stylish": "^2.0.0",
     "motion-ui": "^1.2.2"
   },
@@ -40,7 +41,8 @@
     "images": "gulp images",
     "watch": "gulp watch",
     "browsersync": "gulp browsersync",
-    "update-foundation": "npm install foundation-sites"
+    "update-foundation": "npm install foundation-sites",
+	  "test" : "jest"
   },
   "jshintConfig": {
     "globals": {
