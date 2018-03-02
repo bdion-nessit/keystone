@@ -56,7 +56,7 @@ $output .= wpb_js_remove_wpautop( $content ) .
 	'<div class="vc_row wpb_row vc_inner vc_row-fluid inner-row content-slider-controls"><div class="inner-column wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner "><div class="wpb_wrapper">
 	<div class="wpb_text_column wpb_content_element ">
 		<div class="wpb_wrapper">
-			<div id="" class="content-slide-prev content-slide-dir arrow-left arrow-left-blue widget custom_button" style=""><button></button></div><div class="content-slide-buttons"></div><div id="" class="content-slide-next content-slide-dir arrow-left arrow-left-blue widget custom_button" style=""><button></button></div>
+			<div id="" class="content-slide-prev content-slide-dir arrow-left arrow-left-blue widget custom_button" style=""><button></button></div><div class="content-slide-buttons"></div><div id="" class="content-slide-next content-slide-dir arrow-right arrow-right-blue widget custom_button" style=""><button></button></div>
 
 		</div>
 	</div>

@@ -1,8 +1,51 @@
 var singleSliders = {}; //Store single items sliders for later access
 var midClick = false;
 
+
+
 jQuery(function($) {
 	$(document).ready(function() {
+		//Single item slider "object" "class"
+			function singleSlider(j, k, controls, windowWidth, scrollPos) {
+				this.j = j;
+				this.k = k;
+				this.controls = controls;
+				this.windowWidth = windowWidth;
+				this.scrollPos = scrollPos;
+			}
+		
+		singleSlider.prototype.resize = function() {
+			var windowScale = $('body').width() / this.windowWidth;
+			scrollPos = this.scrollPos * windowScale;
+			this.windowWidth = $('body').width();
+			this.formSlideHeight();
+			this.positionSlides(0);
+			$('body').scrollLeft(this.scrollPos);
+		};
+		//Positions the slides relative to the window size
+		//Uses height of larges slide
+		singleSlider.prototype.positionSlides = function(left) {
+			var slideHeight = 100;
+
+			$(this.k).find('.content-slide').each(function(l,m) {
+				$(m).show();
+				left += this.windowWidth;
+				slideHeight = Math.max(slideHeight, $(m).height());
+			});
+				
+			//make sure slider isn't also a form
+			if(!$(this.j).hasClass('form-slide-wrap')) {
+            	$(this.k).height(slideHeight + 100);
+        	}
+		};
+		singleSlider.prototype.formSlideHeight = function() {
+			if(!$(this.j).hasClass('form-slide-wrap')) {
+        		return;
+        	}
+			var curSlide = $(this.k).find('.content-slide.active');
+			$(this.k).height(curSlide.height() + 225);
+		};
+		
 		$('.content-slide-wrap').each(function(i, j) {
 			var k = $(j).children().first();
 			var controls = $(j).find('.content-slider-controls');
@@ -13,55 +56,11 @@ jQuery(function($) {
 			var canScroll = true;
 			var scrollDebounce;
 			var curScrollLeft = 0;
-			
-			//Positions the slides relative to the window size
-			//Uses height of larges slide
-			function positionSlides(left) {
-				var slideHeight = 100;
 
-				$(k).find('.content-slide').each(function(l,m) {
-					$(m).show();
-					left += windowWidth;
-					slideHeight = Math.max(slideHeight, $(m).height());
-				});
-				
-				//make sure slider isn't also a form
-				if(!$(j).hasClass('form-slide-wrap')) {
-                   $(k).height(slideHeight + 100);
-                }
-			}	
-			
-			function formSlideHeight() {
-				if(!$(j).hasClass('form-slide-wrap')) {
-                   return;
-                }
-				var curSlide = $(k).find('.content-slide.active');
-				$(k).height(curSlide.height() + 225);
-			}
-
-			//initializes slides
-			formSlideHeight();
-			positionSlides(0);
-			
-			//Single item slider "object" "class"
-			function singleSlider(j, k, windowWidth, scrollPos) {
-				this.j = j;
-				this.k = k;
-				this.windowWidth = windowWidth;
-				this.scrollPos = scrollPos;
-				this.positionSlides = positionSlides;
-				this.formSlideHeight = formSlideHeight;
-				this.resize = function() {
-					var windowScale = $('body').width() / windowWidth;
-					scrollPos = scrollPos * windowScale;
-					windowWidth = $('body').width();
-					formSlideHeight();
-					positionSlides(0);
-					$('body').scrollLeft(scrollPos);
-				};
-			}
-			
-			var sliderObject = new singleSlider(j, k, windowWidth, scrollPos);
+			//initializes slides			
+			var sliderObject = new singleSlider(j, k, controls, windowWidth, scrollPos);
+			sliderObject.positionSlides(0);
+			sliderObject.formSlideHeight();
 			
 			var sliderId = $(j).data('slider_id');
 			if(sliderId) {
@@ -133,27 +132,9 @@ jQuery(function($) {
 				}
 			});
 			
-			//In order to reduce complexity, clicking the "previous" or "next" buttons behaves as if you had clicked the button of the previous or next slide, respectively
-			$('.content-slide-prev').click(function() {
-				if(!(controls.find('.active').prevAll(".content-slide-button").length <= 0)) {
-					controls.find('.active').prevAll(".content-slide-button").last().trigger('click');
-				}
-				else {
-					controls.find('.content-slide-button').last().trigger('click');
-				}
-			});
-			$('.content-slide-next').click(function() {
-				if(!(controls.find('.active').nextAll(".content-slide-button").length <= 0)) {
-					controls.find('.active').nextAll(".content-slide-button").first().trigger('click');
-				}
-				else {
-					controls.find('.content-slide-button').first().trigger('click');
-				}
-			});
-			
 			//When user is done scrolling, finish scrolling slide for them if needed
 			//Keeps the slider cleaner looking and aims to make scrolling easier
-			jQuery('.content-slide-wrap > .vc_column-inner').scroll(function() { 
+			jQuery('.content-slide-wrap > .vc_column-inner').on('scroll', function() { 
 				if(midClick || window.innerWidth >= 768 || !canScroll) {
 					return;
 				}
@@ -192,6 +173,32 @@ jQuery(function($) {
 						});
 				}, 101);
 			});
+		});
+		
+		//In order to reduce complexity, clicking the "previous" or "next" buttons behaves as if you had clicked the button of the previous or next slide, respectively
+		$('.content-slide-prev').click(function() {
+			var sliderId = $(this).parents('.content-slide-wrap').data('slider_id');
+			var curSlider = singleSliders[sliderId];
+			var controls = curSlider.controls;
+			
+			if(!(controls.find('.active').prevAll(".content-slide-button").length <= 0)) {
+				controls.find('.active').prevAll(".content-slide-button").last().trigger('click');
+			}
+			else {
+				controls.find('.content-slide-button').last().trigger('click');
+			}
+		});
+		$('.content-slide-next').on('click', function() {
+			var sliderId = $(this).parents('.content-slide-wrap').data('slider_id');
+			var curSlider = singleSliders[sliderId];
+			var controls = curSlider.controls;
+			
+			if(!(controls.find('.active').nextAll(".content-slide-button").length <= 0)) {
+				controls.find('.active').nextAll(".content-slide-button").first().trigger('click');
+			}
+			else {
+				controls.find('.content-slide-button').first().trigger('click');
+			}
 		});
 	});
 });
