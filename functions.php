@@ -2,6 +2,9 @@
 /** 
  * For more info: https://developer.wordpress.org/themes/basics/theme-functions/
  *
+ * Original Theme Created by Joints WP
+ * Last Modified by Nessit on 3/2/18
+ *
  */			
 	
 // Theme support options

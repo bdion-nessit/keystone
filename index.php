@@ -5,6 +5,9 @@
  * This is the most generic template file in a WordPress theme
  * and one of the two required files for a theme (the other being style.css).
  * It is used to display a page when nothing more specific matches a query.
+ *
+ * Original Theme Created by Joints WP
+ * Last Modified by Nessit on 3/2/18
  */
 
 add_action('joints_primary_sidebar', 'get_sidebar');

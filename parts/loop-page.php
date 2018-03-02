@@ -1,6 +1,9 @@
 <?php
 /**
  * Template part for displaying page content in page.php
+ *
+ * Original Theme Created by Joints WP
+ * Last Modified by Nessit on 3/2/18
  */
 ?>
 

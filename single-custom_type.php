@@ -1,6 +1,9 @@
 <?php 
 /**
  * The template for displaying all single posts and attachments
+ *
+ * Original Theme Created by Joints WP
+ * Last Modified by Nessit on 3/2/18
  */
 
 add_action('joints_entry_content', 'echo_open_vc_row_wrapper', 7);

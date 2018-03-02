@@ -1,6 +1,9 @@
 <?php 
 /**
  * The sidebar containing the main widget area
+ *
+ * Original Theme Created by Joints WP
+ * Last Modified by Nessit on 3/2/18
  */
  ?>
 

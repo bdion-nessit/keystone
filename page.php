@@ -3,6 +3,9 @@
  * The template for displaying all pages
  *
  * This is the template that displays all pages by default.
+ *
+ * Original Theme Created by Joints WP
+ * Last Modified by Nessit on 3/2/18
  */
 
 get_header(); 

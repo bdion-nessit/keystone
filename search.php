@@ -3,6 +3,9 @@
  * The template for displaying search results pages
  *
  * For more info: https://developer.wordpress.org/themes/basics/template-hierarchy/#search-result
+ *
+ * Original Theme Created by Joints WP
+ * Last Modified by Nessit on 3/2/18
  */
 
 add_action('joints_entry_header', 'get_entry_header', 9);

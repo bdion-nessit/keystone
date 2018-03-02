@@ -5,6 +5,9 @@
  * Comtains closing divs for header.php.
  *
  * For more info: https://developer.wordpress.org/themes/basics/template-files/#template-partials
+ *
+ * Original Theme Created by Joints WP
+ * Last Modified by Nessit on 3/2/18
  */			
  ?>
 <?php 

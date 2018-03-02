@@ -3,6 +3,9 @@
  * Template part for displaying posts
  *
  * Used for single, index, archive, search.
+ *
+ * Original Theme Created by Joints WP
+ * Last Modified by Nessit on 3/2/18
  */
 
 //Remove header elements intended for single pages

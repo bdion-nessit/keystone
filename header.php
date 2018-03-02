@@ -4,6 +4,9 @@
  *
  * This is the template that displays all of the <head> section
  *
+ * Original Theme Created by Joints WP
+ * Last Modified by Nessit on 3/2/18
+ *
  */
 ?>
 

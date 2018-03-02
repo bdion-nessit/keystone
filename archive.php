@@ -3,6 +3,9 @@
  * Displays archive pages if a speicifc template is not set. 
  *
  * For more info: https://developer.wordpress.org/themes/basics/template-hierarchy/
+ *
+ * Original Theme Created by Joints WP
+ * Last Modified by Nessit on 3/2/18
  */
 
 add_action('joints_entry_header', 'get_entry_header', 9);
