@@ -256,7 +256,7 @@ function home_intro_slider() {
 	//$slider = substr_replace($slider, '"active ', $start, 1);
 	$args = array(
             'post_type' => 'intro_slide',
-            'posts_per_page', -1,
+            'posts_per_page' => -1,
           );
   $query1 = new WP_Query($args);
   global $post;
