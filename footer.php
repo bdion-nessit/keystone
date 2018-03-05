@@ -18,8 +18,10 @@ add_action('joints_inner_footer', 'do_footer_sidebar_4', 6);
 add_action('joints_inner_footer', 'do_copyright', 8);
 
 function do_footer_sidebar_1() {
+	global $footer_column_width;
+	
 	if(is_active_sidebar('footer-sidebar-1')) {
-		echo '<div class="vc_col-sm-6 vc_column_container footer-sidebar-1 footer-sidebar">
+		echo '<div class="vc_col-sm-' . $footer_column_width . ' vc_column_container footer-sidebar-1 footer-sidebar">
 			<div class="vc_column-inner">';
 		dynamic_sidebar('footer-sidebar-1');
 		echo '</div>
@@ -27,8 +29,10 @@ function do_footer_sidebar_1() {
 	}
 }
 function do_footer_sidebar_2() {
+	global $footer_column_width;
+	
 	if(is_active_sidebar('footer-sidebar-2')) {
-		echo '<div class="vc_col-sm-6 vc_column_container footer-sidebar-2 footer-sidebar">
+		echo '<div class="vc_col-sm-' . $footer_column_width . ' vc_column_container footer-sidebar-2 footer-sidebar">
 			<div class="vc_column-inner">';
 		dynamic_sidebar('footer-sidebar-2');
 		echo '</div>
@@ -36,8 +40,10 @@ function do_footer_sidebar_2() {
 	}
 }
 function do_footer_sidebar_3() {
+	global $footer_column_width;
+	
 	if(is_active_sidebar('footer-sidebar-3')) {
-		echo '<div class="vc_col-sm-6 vc_column_container footer-sidebar-3 footer-sidebar">
+		echo '<div class="vc_col-sm-' . $footer_column_width . ' vc_column_container footer-sidebar-3 footer-sidebar">
 			<div class="vc_column-inner">';
 		dynamic_sidebar('footer-sidebar-3');
 		echo '</div>
@@ -45,8 +51,10 @@ function do_footer_sidebar_3() {
 	}
 }
 function do_footer_sidebar_4() {
+	global $footer_column_width;
+	
 	if(is_active_sidebar('footer-sidebar-4')) {
-		echo '<div class="vc_col-sm-6 vc_column_container footer-sidebar-4 footer-sidebar">
+		echo '<div class="vc_col-sm-' . $footer_column_width . ' vc_column_container footer-sidebar-4 footer-sidebar">
 			<div class="vc_column-inner">';
 		dynamic_sidebar('footer-sidebar-4');
 		echo '</div>
@@ -55,8 +63,10 @@ function do_footer_sidebar_4() {
 }
 
 function do_copyright() {
+	global $footer_column_width;
+	
 	if(is_active_sidebar('copyright_footer')) {
-		echo '<div class="vc_col-sm-6 vc_column_container copyright-footer">
+		echo '<div class="vc_col-sm-' . $footer_column_width . ' vc_column_container copyright-footer">
 		<div class="vc_column-inner">';
 		dynamic_sidebar('copyright_footer');
 		echo '</div>

@@ -108,6 +108,8 @@ $column_width = (!empty(get_option('column_width')) ? get_option('column_width')
 
 $sidebar_width = (!empty(get_option('sidebar_primary_width')) ? get_option('sidebar_primary_width') : 4); //Column width of primary sidebar on pages it's used.  
 
+$footer_column_width = (!empty(get_option('footer_column_width')) ? get_option('footer_column_width') : 6); //Column width of each widget area in the footer
+
 //-------End Global Variables------
 
 //-------Begin Custom Options------
@@ -184,28 +186,29 @@ class Joints_Core_Custom_Options {
        );
 	   
 	   //Create setting and control for the number of footer widget columns
-       $wp_customize->add_setting( 'footer_widget_columns', 
+       $wp_customize->add_setting( 'footer_column_width', 
          array(
-             'default'    => '2', 
+             'default'    => '6', 
              'type'       => 'option', 
              'capability' => 'edit_theme_options',
              'transport'  => 'postMessage', 
          ) 
       );       
       $wp_customize->add_control(
-         'footer_widget_columns_control', 
+         'footer_column_width_control', 
          array(
              'label'      => __( 'Number of Columns for Widgets in Footer', 'joints' ), 
-             'settings'   => 'footer_widget_columns', 
+             'settings'   => 'footer_column_width', 
              'priority'   => 11, 
              'section'    => 'site_layout', 
              'type' => 'select',
-             'default' => '2',
+             'default' => '6',
              'choices' => array(
-                 '2' => '2',
-                 '4' => '4',
+				 '12' => '1',
+                 '6' => '2',
+                 '3' => '4',
              ),
-             'description' => 'Set the column width of the primary sidebar.  It\'s recommended that the total column widths equal 12.',
+             'description' => 'Set the column number of columns in the footer.',
          ) 
        );
      
