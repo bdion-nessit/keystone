@@ -1,3 +1,16 @@
+.slider-controls {
+	position: absolute;
+	left: 200px;
+	bottom: 5.6%;
+	bottom: calc(5.6% + 41px);
+	-webkit-transform: translateZ(.1vw);
+	z-index: 5;
+	transform: translateZ(.1vw);
+	span {
+			cursor: pointer;
+			display: inline-block;
+	}
+}
 .intro {
 	height: 1200px;
 	height: 100vh;
@@ -7,6 +20,14 @@
 	background-size: cover;
 	overflow: hidden;
 	max-height: 100vh;
+	position: relative;
+	
+	.intro-slide {
+		.vc_row {
+			padding: 0 !important;
+			margin: 0;
+		}
+	}
 }
 
 .intro-content {
@@ -106,4 +127,10 @@
 	p {
 		display: inline-block;
 	}
+}
+.intro-slider-prev {
+	margin-right: 11px;
+}
+.intro-slider-next {
+	margin-left: 11px;
 }

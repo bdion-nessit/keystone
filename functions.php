@@ -83,7 +83,8 @@ function intro_slider_scripts() {
 	if(!is_front_page()) {
 		return;
 	}
-	echo '<script type="text/javascript" src="' . get_stylesheet_directory_uri() . '/assets/scripts/js_no_compile/intro_slider.js"></script>
+	echo '<script type="text/javascript" src="' . get_stylesheet_directory_uri() . '/assets/scripts/js_no_compile/modernizr.js"></script>
+	<script type="text/javascript" src="' . get_stylesheet_directory_uri() . '/assets/scripts/js_no_compile/intro_slider.js"></script>
 	<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/styles/intro_slider.css" type="text/css" />';
 }
 
@@ -244,7 +245,7 @@ function custom_nav_filter($items, $args) {
 }
 
 //3d full height slider using dynamic content
-//add_action('joints_intro', 'home_intro_slider');
+add_action('joints_intro', 'home_intro_slider');
 
 function home_intro_slider() {
 	if(!is_front_page()) {
