@@ -1,0 +1,109 @@
+.intro {
+	height: 1200px;
+	height: 100vh;
+	width: 100%;
+	background-color: #3C3C3B;
+	background-position: center center;
+	background-size: cover;
+	overflow: hidden;
+	max-height: 100vh;
+}
+
+.intro-content {
+	position: absolute;
+	left: 200px;
+	right: 200px;
+	top: 34.6%;
+	max-width: 100%;
+	z-index: 2;
+	color: #fff;
+		
+	p {
+		display: inline-block;
+		width: 600px;
+		font-size: 19px;
+		color: #fff;
+		max-width: 100%;
+		font-weight: 500;
+	}
+	h2 {
+		font-size: 50px;
+	}
+	h6 {
+		font-size: 26px;
+	}
+		
+	.vc_column-inner {
+			padding: 0;
+	}
+}
+
+.intro-slides {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	-webkit-transform-style: preserve-3d;
+	-webkit-backface-visibility: visible;
+	-webkit-transition-timing-function: ease-out;
+	transform-style: preserve-3d;
+	backface-visibility: visible;
+	transition: all .8s;
+	transition-timing-function: ease-out;
+	text-shadow: 0 1px 4px #222;
+		
+	.intro-slide {
+		position: absolute;
+		top: 0;
+		left: 0;
+		-webkit-transform-style: preserve-3d;
+		-webkit-transition: all .8s;
+		-webkit-transition-timing-function: ease-out;		
+		-webkit-transform: rotateY(-90deg) translateZ(46.7vw);
+		-webkit-backface-visibility: hidden;
+		transform-style: preserve-3d;	
+		transition: all 0.8s;
+		transition-timing-function: ease-out;	
+		transform: rotateY(-90deg) translateZ(46.7vw);
+		backface-visibility: hidden;
+		z-index: 1;
+		width: 100%;
+		height: 100%;
+			
+		&:first-of-type {
+			-webkit-transform: rotateY(0deg) translateZ(46.7vw);
+		}
+		&:first-of-type {
+			transform: rotateY(0deg) translateZ(46.7vw);
+		}
+			
+		.intro-slide-img {
+			width: auto;
+			max-width: none;
+			height: auto;
+			min-height: 100%;
+			min-width: 100%;
+			background-size: cover;
+			background-position: center center;
+		}
+	}
+	.intro-slide.active {
+		-webkit-transform: rotateY(0deg) translateZ(46.7vw);
+		z-index: 2;
+		transform: rotateY(0deg) translateZ(46.7vw) !important;
+	}
+	img.slide-out-bw {
+		-webkit-transform: rotateY(-90deg) translateZ(46.7vw);
+		-webkit-transition: all .8s;
+		transform: rotateY(-90deg) translateZ(46.7vw);
+		transition: all .8s;
+	}
+	img.slide-out-fw {
+		-webkit-transform: rotateY(90deg) translateZ(46.7vw);
+		-webkit-transition: all .8s;
+		transform: rotateY(90deg) translateZ(46.7vw);
+		transition: all .8s;
+	}
+	p {
+		display: inline-block;
+	}
+}

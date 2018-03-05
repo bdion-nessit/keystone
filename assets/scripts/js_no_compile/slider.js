@@ -5,7 +5,8 @@ var midClick = false;
 
 jQuery(function($) {
 	$(document).ready(function() {
-		//Single item slider "object" "class"
+		
+		//Begin single item slider "object" "class"
 			function singleSlider(j, k, controls, windowWidth, scrollPos) {
 				this.j = j;
 				this.k = k;
@@ -22,6 +23,7 @@ jQuery(function($) {
 			this.positionSlides(0);
 			$('body').scrollLeft(this.scrollPos);
 		};
+		
 		//Positions the slides relative to the window size
 		//Uses height of larges slide
 		singleSlider.prototype.positionSlides = function(left) {
@@ -45,6 +47,7 @@ jQuery(function($) {
 			var curSlide = $(this.k).find('.content-slide.active');
 			$(this.k).height(curSlide.height() + 225);
 		};
+		//End single item slider "object" "class"
 		
 		$('.content-slide-wrap').each(function(i, j) {
 			var k = $(j).children().first();

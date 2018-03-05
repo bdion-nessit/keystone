@@ -79,6 +79,14 @@ function get_google_fonts() {
 }
 */
 
+function intro_slider_scripts() {
+	if(!is_front_page()) {
+		return;
+	}
+	echo '<script type="text/javascript" src="' . get_stylesheet_directory_uri() . '/assets/scripts/js_no_compile/intro_slider.js"></script>
+	<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/styles/intro_slider.css" type="text/css" />';
+}
+
 //-------End external scripts-------
 
 //-------Begin Shortcodes------
@@ -233,6 +241,49 @@ function custom_nav_filter($items, $args) {
 	}
 	
   return $items;
+}
+
+//3d full height slider using dynamic content
+//add_action('joints_intro', 'home_intro_slider');
+
+function home_intro_slider() {
+	if(!is_front_page()) {
+    	return;
+	}
+	//$slider = get_field('intro_slider');
+	//$start = strpos($slider, '<img class="') + 11;
+	//$slider = substr_replace($slider, '"active ', $start, 1);
+	$args = array(
+            'post_type' => 'intro_slide',
+            'posts_per_page', -1,
+          );
+  $query1 = new WP_Query($args);
+  global $post;
+  echo '<div class="intro-slides">';
+  while($query1->have_posts()) {
+    $query1->the_post();
+	  echo '<div class="intro-slide">
+	  	<div class="intro-slide-contents intro-content">';
+                  the_content();
+            echo '</div>';
+	  
+	  		//Get the ID of the slide's bg image and then get it as an attachment image
+            $slide_id = get_post_meta($post->ID, 'slide_image', '', true);
+            $slide_id = $slide_id[0]['ID'];
+            $slide_src = wp_get_attachment_image_src($slide_id, 'full');
+	  
+            echo '<div class="intro-slide-img" style="background-image: url(\'' . $slide_src[0] . '\')"></div>
+		</div>';
+  }
+  wp_reset_postdata();
+  echo '</div>
+  <div class="slider-controls">
+      <span class="intro-slider-prev intro-slider-dir"><img src="' . get_stylesheet_directory_uri() . '/images/arrow_prev.png" alt="Previous Slide" /></span>
+      <img src="' . get_stylesheet_directory_uri() . '/images/slide_divider.png" alt="Slider Controls Divider" />
+      <span class="intro-slider-next intro-slider-dir"><img src="' . get_stylesheet_directory_uri() . '/images/arrow_next.png" alt="Next Slide" /></span>
+    </div>';
+	
+	add_action('wp_footer', 'intro_slider_scripts'); //Load controlling css/jsd
 }
 
 //Display styles from custom WPB Page Builder widgets that can't be set inline
