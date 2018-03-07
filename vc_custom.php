@@ -48,6 +48,7 @@ $hover_colors = array(
 add_action('vc_before_init', 'vc_single_item_slider_init');
 add_action('vc_before_init', 'vc_multi_item_slider_init');
 add_action('vc_before_init', 'vc_linkable_column');
+add_action('vc_before_init', 'vc_custom_hover_box_init');
 add_action('vc_before_init', 'vc_rotary_menu_init');
 add_action('vc_before_init', 'vc_table_init');
 add_action('vc_before_init', 'vc_custom_button_init');
@@ -360,6 +361,143 @@ function vc_linkable_column() {
     ));
   if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
     class WPBakeryShortCode_vc_Linkable_Column extends WPBakeryShortCodesContainer {
+
+    }
+  }
+}
+function vc_custom_hover_box_init() {
+	global $hover_anims;
+	global $hover_colors;
+	
+	vc_map(array(
+		'name' => 'Joints Custom Hover Box',
+		'base' => 'vc_custom_hover_box',
+		'icon' => 'vc_linkable_column_icon',
+		'as_parent' => array('except' => ''),
+		'content_element' => true,
+		'show_settings_on_create' => true,
+		'is_container' => true,
+		'params' => array(
+		  array(
+			'type' => 'textfield',
+			'heading' => 'Element ID',
+			'param_name' => 'elem_id',
+			'description' => 'Enter element ID (Note: make sure it is unique and valid according to w3c specification).',
+			'group' => 'General',
+			),
+		  array(
+			'type' => 'textfield',
+			'heading' => 'Extra class name',
+			'param_name' => 'el_class',
+			'description' => 'Style particular content element differently - add a class name and refer to it in custom CSS.',
+			'group' => 'General',
+			),
+		  array(
+			'type' => 'css_editor',
+			'heading' => 'CSS Options',
+			'param_name' => 'css',
+			'group' => 'Design options',
+			),
+		),
+		"js_view" => 'vc_custom_hover_box_view',
+		'admin_enqueue_js' => get_stylesheet_directory_uri() . '/assets/scripts/js_no_compile/custom_hover_box_admin.js',
+		'admin_enqueue_css' => get_stylesheet_directory_uri() . '/assets/styles/hover_box_admin.css',
+	));
+	
+	vc_map(array(
+		'name' => 'Default State',
+		'base' => 'vc_custom_hover_box_default',
+		'icon' => 'vc_linkable_column_icon',
+		'as_parent' => array('except' => ''),
+		'content_element' => true,
+		'show_settings_on_create' => true,
+		'is_container' => true,
+		"as_child" => array('only' => 'vc_custom_hover_box'),
+		'params' => array(
+			array(
+				"type" => "textarea_html",
+				"class" => "",
+				"heading" => 'Default state content',
+				'admin_label' => true,
+				"param_name" => "content",
+				"value" => '',
+				'group' => 'General',
+			),
+			array(
+				'type' => 'textfield',
+				'heading' => 'Element ID',
+				'param_name' => 'elem_id',
+				'description' => 'Enter element ID (Note: make sure it is unique and valid according to w3c specification).',
+				'group' => 'General',
+			),
+			array(
+				'type' => 'textfield',
+				'heading' => 'Extra class name',
+				'param_name' => 'el_class',
+				'description' => 'Style particular content element differently - add a class name and refer to it in custom CSS.',
+				'group' => 'General',
+			),
+			array(
+				'type' => 'css_editor',
+				'heading' => 'CSS Options',
+				'param_name' => 'css',
+				'group' => 'Design options',
+			),
+		),
+		"js_view" => 'inner_hover_box_view',
+	));
+	
+	vc_map(array(
+		'name' => 'Hover State',
+		'base' => 'vc_custom_hover_box_hover',
+		'icon' => 'vc_linkable_column_icon',
+		'as_parent' => array('except' => ''),
+		'content_element' => true,
+		'show_settings_on_create' => true,
+		'is_container' => true,
+		"as_child" => array('only' => 'vc_custom_hover_box'),
+		'params' => array(
+			array(
+				"type" => "textarea_html",
+				"class" => "",
+				"heading" => 'Hover state content',
+				'admin_label' => true,
+				"param_name" => "content",
+				"value" => '',
+				'group' => 'General',
+			),
+			array(
+				'type' => 'textfield',
+				'heading' => 'Element ID',
+				'param_name' => 'elem_id',
+				'description' => 'Enter element ID (Note: make sure it is unique and valid according to w3c specification).',
+				'group' => 'General',
+			),
+			array(
+				'type' => 'textfield',
+				'heading' => 'Extra class name',
+				'param_name' => 'el_class',
+				'description' => 'Style particular content element differently - add a class name and refer to it in custom CSS.',
+				'group' => 'General',
+			),
+			array(
+				'type' => 'css_editor',
+				'heading' => 'CSS Options',
+				'param_name' => 'css',
+				'group' => 'Design options',
+			),
+		),
+		"js_view" => 'inner_hover_box_view',
+	));
+	
+  if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
+    class WPBakeryShortCode_vc_Custom_Hover_Box extends WPBakeryShortCodesContainer {
+
+    }
+	  class WPBakeryShortCode_vc_Custom_Hover_Box_Default extends WPBakeryShortCode {
+
+    }
+	  class WPBakeryShortCode_vc_Custom_Hover_Box_Hover extends WPBakeryShortCode {
 
     }
   }
