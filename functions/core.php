@@ -42,6 +42,11 @@ function get_multi_slider_scripts() {
 	echo '<script type="text/javascript" src="' . get_stylesheet_directory_uri() . '/assets/scripts/js_no_compile/multi_slider.js"></script>';
 }
 
+//Only output to page if one or more custom hover boxes present on page
+function get_hover_box_scripts() {
+	echo '<script type="text/javascript" src="' . get_stylesheet_directory_uri() . '/assets/scripts/js_no_compile/custom_hover_box.js"></script>';
+}
+
 //Get the script for pagination, and allow for its ajax connection
 add_action('wp_enqueue_scripts', 'enqueue_blog_load_more');
 add_action( 'wp_ajax_blog_load_more', 'do_blog_load_more' );
@@ -741,8 +746,8 @@ function get_primary_sidebar() {
 
 //-------Being Site Footer
 
-add_action('joints_inner_footer', 'echo_open_vc_row_wrapper', 2);
+add_action('joints_inner_footer', 'echo_open_vc_row_wrapper', 8);
 
-add_action('joints_inner_footer', 'echo_close_vc_row_wrapper', 19);
+add_action('joints_inner_footer', 'echo_close_vc_row_wrapper', 12);
 
 //-------End Site Footer

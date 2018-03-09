@@ -458,6 +458,7 @@ Posts & Content Styles
 .content {
 	.inner-content {
 		padding: 1rem 0rem;
+		margin: 0;
 	}
 }
 
@@ -495,6 +496,7 @@ Posts & Content Styles
 
 .main {
 	padding: 0;
+	width: 100% !important;
 }
 
 // Entry content  
@@ -565,6 +567,43 @@ Posts & Content Styles
 .flex-gallery-image {
 	background-size: cover;
 	background-position: center center;
+}
+
+hover_box {
+	position: relative;
+	display: flex;
+	
+	&:hover {
+		.hover_box_default {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+	&:not(:hover) {
+		.hover_box_hover {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+	
+	.hover_box_default,
+	.hover_box_hover {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		-webkit-transform: translateY(-50%);
+		top: 50%;
+		left: 0;
+		transform: translateY(-50%);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		
+		&.vc_column-inner {
+			
+		}
+	}
 }
 
 .post-sort {
