@@ -11,22 +11,21 @@
  */			
  ?>
 <?php 
-add_action('joints_inner_footer', 'do_footer_sidebar_1', 13);
-add_action('joints_inner_footer', 'do_footer_sidebar_2', 13);
-add_action('joints_inner_footer', 'do_footer_sidebar_3', 13);
-add_action('joints_inner_footer', 'do_footer_sidebar_4', 13);
-add_action('joints_inner_footer', 'do_copyright', 15);
+add_action('joints_inner_footer', 'do_footer_sidebar_1', 14);
+add_action('joints_inner_footer', 'do_footer_sidebar_2', 14);
+add_action('joints_inner_footer', 'do_footer_sidebar_3', 14);
+add_action('joints_inner_footer', 'do_footer_sidebar_4', 14);
+add_action('joints_inner_footer', 'do_copyright', 16);
 
 function do_footer_sidebar_1() {
 	global $footer_column_width;
 	
 	if(is_active_sidebar('footer-sidebar-1')) {
-		echo '<div class="vc_row vc_row-o-equal-height vc_row-flex">
-			<div class="vc_col-sm-' . $footer_column_width . ' vc_column_container footer-sidebar-1 footer-sidebar">
-				<div class="vc_column-inner">';
-				dynamic_sidebar('footer-sidebar-1');
-			echo '</div>
-			</div>';
+		echo '<div class="vc_col-sm-' . $footer_column_width . ' vc_column_container footer-sidebar-1 footer-sidebar">
+			<div class="vc_column-inner">';
+		dynamic_sidebar('footer-sidebar-1');
+		echo '</div>
+		</div>';
 	}
 }
 function do_footer_sidebar_2() {
@@ -55,11 +54,10 @@ function do_footer_sidebar_4() {
 	global $footer_column_width;
 	
 	if(is_active_sidebar('footer-sidebar-4')) {
-			echo '<div class="vc_col-sm-' . $footer_column_width . ' vc_column_container footer-sidebar-4 footer-sidebar">
-				<div class="vc_column-inner">';
-			dynamic_sidebar('footer-sidebar-4');
-			echo '</div>
-			</div>
+		echo '<div class="vc_col-sm-' . $footer_column_width . ' vc_column_container footer-sidebar-4 footer-sidebar">
+			<div class="vc_column-inner">';
+		dynamic_sidebar('footer-sidebar-4');
+		echo '</div>
 		</div>';
 	}
 }

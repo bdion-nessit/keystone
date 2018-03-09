@@ -301,20 +301,32 @@ function get_featured() {
 }
 
 //Timesaver for creating wrapping rows
-function open_vc_row_wrapper($i = 12) {
-    return '<div class="vc_row">
-            <div class="vc_col-sm-12">
-                <div class="vc_column-inner">';
+function open_vc_row_wrapper() {
+    return '<div class="vc_row">';
 }
+function open_vc_row_equal_height_wrapper($i = 12) {
+    return '<div class="vc_row vc_row-o-equal-height vc_row-flex">';
+}
+function open_vc_column_wrapper($i=12) {
+	return '<div class="vc_col-sm-' . 12 . '">
+    	<div class="vc_column-inner">';
+}
+
 function echo_open_vc_row_wrapper() {
 	echo open_vc_row_wrapper();
 }
-
-function close_vc_row_wrapper() {
-    return '</div></div></div>';
+function echo_open_vc_row_equal_height_wrapper() {
+    echo open_vc_row_equal_height_wrapper();
 }
-function echo_close_vc_row_wrapper() {
-	echo close_vc_row_wrapper();
+function echo_open_vc_column_wrapper() {
+	echo open_vc_column_wrapper();
+}
+
+function close_vc_column_wrapper() {
+    return '</div></div>';
+}
+function echo_close_vc_column_wrapper() {
+	echo close_vc_column_wrapper();
 }
 
 function add_clearfix() {
@@ -621,7 +633,8 @@ add_action('joints_entry_header', 'entry_header_row_close', 15);
 add_action('joints_entry_header', 'close_entry_header', 99); 
 
 function entry_header_row_open() {
-	echo open_vc_row_wrapper();
+	echo_open_vc_row_wrapper();
+	echo_open_vc_column_wrapper();
 }
 function get_entry_header() {
 	?>
@@ -647,7 +660,8 @@ function get_entry_header() {
 	<?php
 }
 function entry_header_row_close() {
-	echo close_vc_row_wrapper();
+	echo_close_vc_column_wrapper();
+	close_element();
 }
 
 function open_entry_header() {
@@ -746,8 +760,11 @@ function get_primary_sidebar() {
 
 //-------Being Site Footer
 
-add_action('joints_inner_footer', 'echo_open_vc_row_wrapper', 8);
+add_action('joints_inner_footer', 'echo_open_vc_row_equal_height_wrapper', 2);
+add_action('joints_inner_footer', 'echo_open_vc_column_wrapper', 2);
 
-add_action('joints_inner_footer', 'echo_close_vc_row_wrapper', 12);
+add_action('joints_inner_footer', 'echo_close_vc_column_wrapper', 13);
+
+add_action('joints_inner_footer', 'close_element', 19);
 
 //-------End Site Footer

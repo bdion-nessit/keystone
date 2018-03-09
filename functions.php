@@ -344,11 +344,3 @@ function get_archive_css() {
 	'</style>';
 }
 
-add_action('joints_before_nav', 'mobile_menu_hamburger'); //Default hamburger menu to open/close mobile nav menu
-
-function mobile_menu_hamburger() {
-	echo '<div class="hamburger-menu-wrap" data-target=".top-sidebar">
-		<span class="hamburger-menu"></span>
-	</div>';
-}
-
