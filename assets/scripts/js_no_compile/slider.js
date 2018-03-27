@@ -7,12 +7,17 @@ jQuery(function($) {
 	$(document).ready(function() {
 		
 		//Begin single item slider "object" "class"
-			function singleSlider(j, k, controls, windowWidth, scrollPos) {
+		function singleSlider(j, k, controls, windowWidth, scrollPos) {
 				this.j = j;
 				this.k = k;
 				this.controls = controls;
 				this.windowWidth = windowWidth;
 				this.scrollPos = scrollPos;
+				this.hasAutoRotate = $(j).data('auto_rotate') ? $(j).data('auto_rotate') : 'no';
+				
+				if(this.hasAutoRotate === 'yes') {
+					this.autoRotator();
+				}
 			}
 		
 		singleSlider.prototype.resize = function() {
@@ -47,6 +52,14 @@ jQuery(function($) {
 			var curSlide = $(this.k).find('.content-slide.active');
 			$(this.k).height(curSlide.height() + 225);
 		};
+		singleSlider.prototype.autoRotator = function() {
+			
+			this.autoRotate = setTimeout(function(slider) {
+				$(slider.controls).find('.content-slide-next').trigger('click');
+			}, 5000, this);
+			
+			return;
+		}
 		//End single item slider "object" "class"
 		
 		$('.content-slide-wrap').each(function(i, j) {
@@ -184,23 +197,33 @@ jQuery(function($) {
 			var curSlider = singleSliders[sliderId];
 			var controls = curSlider.controls;
 			
+			clearTimeout(curSlider.autoRotate);
+			
 			if(!(controls.find('.active').prevAll(".content-slide-button").length <= 0)) {
 				controls.find('.active').prevAll(".content-slide-button").last().trigger('click');
 			}
 			else {
 				controls.find('.content-slide-button').last().trigger('click');
 			}
+			
+			curSlider.autoRotator();
 		});
 		$('.content-slide-next').on('click', function() {
 			var sliderId = $(this).parents('.content-slide-wrap').data('slider_id');
 			var curSlider = singleSliders[sliderId];
 			var controls = curSlider.controls;
 			
+			clearTimeout(curSlider.autoRotate);
+			
 			if(!(controls.find('.active').nextAll(".content-slide-button").length <= 0)) {
 				controls.find('.active').nextAll(".content-slide-button").first().trigger('click');
 			}
 			else {
 				controls.find('.content-slide-button').first().trigger('click');
+			}
+			
+			if(curSlider.hasAutoRotate === 'yes') {
+				curSlider.autoRotator();
 			}
 		});
 	});

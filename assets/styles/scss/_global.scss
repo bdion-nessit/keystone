@@ -531,6 +531,8 @@ Posts & Content Styles
 }
 .vc_row {
 	margin: 0 !important;
+	min-width: 100%;
+	
 	&:not(.inner-row) {
 		
 	}
@@ -959,15 +961,13 @@ Plugin Styles
 
 .content-slide-wrap {
 	text-align: center;
-	> .vc_column-inner {
-		position: relative;
-		width: 100%;
-		overflow: hidden;
-		background-position: center top !important;
-		> * {
-			height: 100%;
+	
+	&.hide-controls {
+		.content-slider-controls {
+			display: none;
 		}
 	}
+	
 	.content-slide {
 		position: absolute;
 		left: 0;
@@ -983,6 +983,16 @@ Plugin Styles
 		}
 		&:first-of-type {
 			opacity: 1;
+		}
+	}
+	
+	> .vc_column-inner {
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+		background-position: center top !important;
+		> * {
+			height: 100%;
 		}
 	}
 }
@@ -1049,9 +1059,9 @@ Plugin Styles
 	
 	a,
 	button {
-		line-height: inherit;
 		color: inherit !important;
 		cursor: inherit;
+		line-height: inherit;
 		padding: 10px;
 	}
 	img {
@@ -1059,6 +1069,26 @@ Plugin Styles
 		&:first-of-type {
 			display: inline-block;
 		}
+	}
+}
+
+.wpb_custom_button {
+	margin-right: 10px;
+	
+	&.has-display-block {
+		width: 100%;
+		
+		button {
+			width: 100%;
+		}
+	}
+	
+	&:last-child {
+		margin-right: 0;
+	}
+	
+	.custom_button {
+		vertical-align: top;
 	}
 }
 

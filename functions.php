@@ -181,7 +181,8 @@ function create_slide_type() {
   );
 }*/
 
-add_action('joints_intro_content', 'page_breadcrumbs');
+//Optional function
+//add_action('joints_intro_content', 'page_breadcrumbs');
 
 function page_breadcrumbs() {
 	global $post;
@@ -245,7 +246,7 @@ function custom_nav_filter($items, $args) {
 }
 
 //3d full height slider using dynamic content
-add_action('joints_intro', 'home_intro_slider');
+//add_action('joints_intro', 'home_intro_slider');
 
 function home_intro_slider() {
 	if(!is_front_page()) {

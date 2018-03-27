@@ -63,13 +63,35 @@ function vc_single_item_slider_init() {
     'base' => 'vc_single_item_slider',
     'icon' => 'vc_single_item_slider_icon',
     'as_parent' => array(
-      'only' => 'vc_single_item_slider_item',
+      'only' => 'vc_single_item_slider_item, vc_basic_grid',
       ),
     'content_element' => true,
     'show_settings_on_create' => false,
     'is_container' => true,
-    'admin_enqueue_css' => get_stylesheet_directory_uri() . '/assets/styles/custom-editor-style.css',
+    'admin_enqueue_css' => get_template_directory_uri() . '/assets/styles/custom-editor-style.css',
     'params' => array(
+		array(
+			'type' => 'dropdown',
+			'heading' => 'Auto-rotate?',
+			'param_name' => 'auto_rotate',
+			'group' => 'General',
+			'value' => array(
+				'No' => 'no',
+				'Yes' => 'yes',
+			),
+			'std' => 'no',
+		),
+		array(
+			'type' => 'dropdown',
+			'heading' => 'Hide Controls?',
+			'param_name' => 'hide_controls',
+			'group' => 'General',
+			'value' => array(
+				'No' => 'no',
+				'Yes' => 'yes',
+			),
+			'std' => 'no',
+		),
       array(
         'type' => 'textfield',
         'heading' => 'Element ID',
@@ -150,7 +172,7 @@ function vc_multi_item_slider_init() {
 		'content_element' => true,
 		'show_settings_on_create' => false,
 		'is_container' => true,
-		'admin_enqueue_css' => get_stylesheet_directory_uri() . '/assets/styles/custom-editor-style.css',
+		'admin_enqueue_css' => get_template_directory_uri() . '/assets/styles/custom-editor-style.css',
 		'params' => array(
 			array(
 				'type' => 'checkbox',
@@ -272,7 +294,7 @@ function vc_linkable_column() {
 		'name' => 'Linkable Column',
 		'base' => 'vc_linkable_column',
 		'icon' => 'vc_linkable_column_icon',
-		'as_parent' => array('except' => ''),
+		//'as_parent' => array('except' => ''),
 		'content_element' => true,
 		'show_settings_on_create' => true,
 		'is_container' => true,
@@ -400,8 +422,8 @@ function vc_custom_hover_box_init() {
 			),
 		),
 		"js_view" => 'vc_custom_hover_box_view',
-		'admin_enqueue_js' => get_stylesheet_directory_uri() . '/assets/scripts/js_no_compile/custom_hover_box_admin.js',
-		'admin_enqueue_css' => get_stylesheet_directory_uri() . '/assets/styles/hover_box_admin.css',
+		'admin_enqueue_js' => get_template_directory_uri() . '/assets/scripts/js_no_compile/custom_hover_box_admin.js',
+		'admin_enqueue_css' => get_template_directory_uri() . '/assets/styles/hover_box_admin.css',
 	));
 	
 	vc_map(array(
@@ -409,6 +431,7 @@ function vc_custom_hover_box_init() {
 		'base' => 'vc_custom_hover_box_default',
 		'icon' => 'vc_linkable_column_icon',
 		'as_parent' => array('except' => ''),
+		'as_child' => array('only' => 'vc_custom_hover_box'),
 		'content_element' => true,
 		'show_settings_on_create' => true,
 		'is_container' => true,
@@ -513,7 +536,7 @@ function vc_rotary_menu_init() {
     'content_element' => true,
     'show_settings_on_create' => false,
     'is_container' => true,
-    'admin_enqueue_css' => get_stylesheet_directory_uri() . '/assets/styles/custom-editor-style.css',
+    'admin_enqueue_css' => get_template_directory_uri() . '/assets/styles/custom-editor-style.css',
     'params' => array(
       array(
         'type' => 'textfield',
@@ -607,7 +630,7 @@ function vc_table_init() {
 		'content_element' => true,
 		'show_settings_on_create' => false,
 		'is_container' => true,
-		'admin_enqueue_css' => get_stylesheet_directory_uri() . '/assets/styles/custom-editor-style.css',
+		'admin_enqueue_css' => get_template_directory_uri() . '/assets/styles/custom-editor-style.css',
 		'params' => array(
 			array(
 				'type' => 'dropdown',
@@ -1502,7 +1525,8 @@ function joints_custom_vc_button($atts, $content) {
 
       $classes_arr[] = $style_id;
 
-  //Format button content
+	$atts['content_type'] = $atts['content_type'] ?? 'text';
+	//Format button content
 	switch($atts['content_type']) {
     	case 'text': 
 			$button_atts['content'] = (isset($atts['title']) ? $atts['title'] : "");
@@ -1524,7 +1548,7 @@ function joints_custom_vc_button($atts, $content) {
 			}
 			break;
 		case 'textbox':
-			$button_atts['content'] = do_shortcode($content);
+			$button_atts['content'] = preg_replace("/\<p\>$/", '', wpb_js_remove_wpautop( do_shortcode($content) ));
 			$classes_arr[] = 'textbox';
 			break;
 	}
