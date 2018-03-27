@@ -1048,6 +1048,14 @@ Plugin Styles
 	cursor: pointer;
 	border-width: 1px;
 
+	&:hover {
+		img {
+			display: inline-block;
+			&:first-of-type:not(:last-of-type) {
+				display: none;
+			}
+		}
+	}
 	&.full-width {
 		a {
 			display: block;
