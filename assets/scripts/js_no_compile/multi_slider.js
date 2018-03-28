@@ -56,7 +56,6 @@ jQuery(function($) {
 				}
 
 				var numSlides = $(j).data('num_slides');
-				console.log('number of slides' + numSlides);
 				var visibleSlides = getVisibleSlides(numSlides);
 
 				function initializeMultiSlider() {
