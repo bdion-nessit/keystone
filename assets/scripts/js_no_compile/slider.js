@@ -63,7 +63,7 @@ jQuery(function($) {
 		
 		//End single item slider "object" "class"
 		
-		$('.content-slide-wrap').each(function(i, j) {
+		$('.single-slide-wrap').each(function(i, j) {
 			var k = $(j).children().first();
 			var controls = $(j).find('.content-slider-controls');
 			var windowWidth = $(j).width();
@@ -128,7 +128,7 @@ jQuery(function($) {
 				controls.find('.content-slide-prev').after(buttons);
 
 				//change slides
-				$(".content-slide-button").click(function() {
+				$(".single-slider-controls .content-slide-button").click(function() {
 
 					if(!$(this).hasClass('active')) {
 						userSlide = false;
@@ -213,7 +213,7 @@ jQuery(function($) {
 		});
 		
 		//In order to reduce complexity, clicking the "previous" or "next" buttons behaves as if you had clicked the button of the previous or next slide, respectively
-		$('.content-slide-prev').click(function() {
+		$('.single-slider-controls .content-slide-prev').click(function() {
 			var sliderId = $(this).parents('.content-slide-wrap').data('slider_id');
 			var curSlider = singleSliders[sliderId];
 			var controls = curSlider.controls;
@@ -229,7 +229,7 @@ jQuery(function($) {
 				curSlider.autoRotator();
 			}
 		});
-		$('.content-slide-next').on('click', function() {
+		$('.single-slider-controls .content-slide-next').on('click', function() {
 			var sliderId = $(this).parents('.content-slide-wrap').data('slider_id');
 			var curSlider = singleSliders[sliderId];
 			var controls = curSlider.controls;

@@ -27,11 +27,13 @@ $width = vc_column_offset_class_merge( $offset, $width );
 
 $css_classes = array(
 	$this->getExtraClass( $el_class ) . $this->getCSSAnimation( $css_animation ),
+	'single-slide-wrap',
 	'content-slide-wrap',
 	'js-content-slide-wrap',
 	'vc_column-inner',
 	esc_attr( trim( vc_shortcode_custom_css_class( $css ) ) ),
 	$width,
+	(!empty($hide_controls) && $hide_controls === 'yes' ? 'hide-controls' : ''),
 );
 
 if ( vc_shortcode_custom_css_has_property( $css, array(
@@ -49,11 +51,14 @@ $wrapper_attributes[] = 'data-slider_id="slider-' . preg_replace("/\./", '', uni
 if ( ! empty( $el_id ) ) {
 	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
 }
+if(!empty($auto_rotate) && $auto_rotate === 'yes') {
+	$wrapper_attributes[] = 'data-auto_rotate="yes"';
+}
 
 $output .= '<div ' . implode( ' ', $wrapper_attributes ) . '>';
 $output .= '<div class="wpb_wrapper">';
 $output .= wpb_js_remove_wpautop( $content ) . 
-	'<div class="vc_row wpb_row vc_inner vc_row-fluid inner-row content-slider-controls"><div class="inner-column wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner "><div class="wpb_wrapper">
+	'<div class="vc_row wpb_row vc_inner vc_row-fluid inner-row content-slider-controls single-slider-controls"><div class="inner-column wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner "><div class="wpb_wrapper">
 	<div class="wpb_text_column wpb_content_element ">
 		<div class="wpb_wrapper">
 			<div id="" class="content-slide-prev content-slide-dir arrow-left arrow-left-blue widget custom_button" style=""><button></button></div><div class="content-slide-buttons"></div><div id="" class="content-slide-next content-slide-dir arrow-right arrow-right-blue widget custom_button" style=""><button></button></div>

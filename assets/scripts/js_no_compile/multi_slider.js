@@ -36,7 +36,7 @@ jQuery(function($) {
 
 		if($('.multi-slide').length) {
 			$('.multi-slide-wrap').each(function(i, j) {
-				var sliderWidth = $(j).width();
+				var sliderWidth = $(j).outerWidth();
 				var curScroll = 0;
 				var slideCount = $(j).find('.multi-slide').length;
 				var controls = $(j).find('.content-slider-controls');

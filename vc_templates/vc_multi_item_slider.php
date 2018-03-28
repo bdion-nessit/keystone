@@ -27,6 +27,7 @@ $width = vc_column_offset_class_merge( $offset, $width );
 $css_classes = array(
 	$this->getExtraClass( $el_class ) . $this->getCSSAnimation( $css_animation ),
 	'multi-slide-wrap',
+	'content-slide-wrap',
 	'vc_column-inner',
 	esc_attr( trim( vc_shortcode_custom_css_class( $css ) ) ),
 	$width,
@@ -66,7 +67,7 @@ $output .= ($show_featured === 'yes' ? '<div class="vc_row inner-row vc_row-o-eq
 			<div ' . implode( ' ', $wrapper_attributes ) . '>
 				<div class="wpb_wrapper multi-slider">';
 $output .=  wpb_js_remove_wpautop( $content ) . 
-'<div class="vc_row wpb_row vc_inner vc_row-fluid inner-row content-slider-controls">
+'<div class="vc_row wpb_row vc_inner vc_row-fluid inner-row content-slider-controls multi-slider-controls">
 	<div class="inner-column wpb_column vc_column_container vc_col-sm-12">
 		<div class="vc_column-inner ">
 			<div class="wpb_wrapper">
