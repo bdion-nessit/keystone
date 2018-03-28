@@ -205,6 +205,18 @@ function vc_multi_item_slider_init() {
 				'std' => '',
 			),
 			array(
+				'type' => 'dropdown',
+				'heading' => 'Number of slides to show',
+				'param_name' => 'num_slides',
+				'group' => 'General',
+				'value' => array(
+					'Two' => 2,
+					'Three' => 3,
+					'Four' => 4,
+				),
+				'std' => 4,
+			),
+			array(
 				'type' => 'textfield',
 				'heading' => 'Element ID',
 				'param_name' => 'elem_id',
@@ -920,7 +932,7 @@ function vc_custom_button_init() {
                 	'Image' => 'img',
 					'Textbox' => 'textbox',
               ),
-              'std' => 'Text',
+              'std' => 'text',
            ),
           array(
               "type" => "textfield",
@@ -1526,7 +1538,6 @@ function joints_custom_vc_button($atts, $content) {
       $classes_arr[] = $style_id;
 
 	$atts['content_type'] = $atts['content_type'] ?? 'text';
-	//Format button content
 	switch($atts['content_type']) {
     	case 'text': 
 			$button_atts['content'] = (isset($atts['title']) ? $atts['title'] : "");
@@ -1764,6 +1775,13 @@ function my_module_add_grid_shortcodes( $shortcodes ) {
     'description' => __( 'Show custom post meta', 'my-text-domain' ),
     'post_type' => Vc_Grid_Item_Editor::postType(),
    );
+	$shortcodes['vc_custom_breadcrumbs'] = array(
+		'name' => __( 'Custom Post Date', 'my-text-domain' ),
+		'base' => 'vc_custom_date',
+		'category' => __( 'Content', 'my-text-domain' ),
+		'description' => __( 'Show custom-formatted post date', 'my-text-domain' ),
+		'post_type' => Vc_Grid_Item_Editor::postType(),
+	);
 	$shortcodes['vc_custom_tax'] = array(
 		'name' => __( 'Custom Taxonomy', 'my-text-domain' ),
 		'base' => 'vc_custom_tax',
@@ -1788,6 +1806,7 @@ function my_module_add_grid_shortcodes( $shortcodes ) {
 // output function
 add_shortcode( 'vc_custom_breadcrumbs', 'vc_custom_breadcrumbs_render' );
 add_shortcode( 'vc_custom_author_pic', 'vc_custom_author_pic_render' );
+add_shortcode( 'vc_custom_date', 'vc_custom_date' );
 add_shortcode( 'vc_custom_tax', 'vc_custom_tax' );
 
 function vc_custom_breadcrumbs_render($atts, $content, $tag) {
@@ -1795,6 +1814,9 @@ function vc_custom_breadcrumbs_render($atts, $content, $tag) {
 }
 function vc_custom_author_pic_render($atts, $content, $tag) {
   return '{{author_pic}}';
+}
+function vc_custom_date($atts, $content, $tag) {
+  return '{{custom_date}}';
 }
 function vc_custom_tax($atts, $content, $tag) {
 	return '<p>
@@ -1807,6 +1829,7 @@ add_filter( 'vc_gitem_template_attribute_post_attr', 'vc_gitem_template_attribut
 add_filter( 'vc_gitem_template_attribute_custom_meta', 'vc_gitem_template_attribute_custom_meta', 10, 2 );
 add_filter( 'vc_gitem_template_attribute_zebreadcrumbs', 'vc_gitem_template_attribute_zebreadcrumbs', 10, 2 );
 add_filter( 'vc_gitem_template_attribute_author_pic', 'vc_gitem_template_attribute_author_pic', 10, 2 );
+add_filter( 'vc_gitem_template_attribute_custom_date', 'vc_gitem_template_attribute_custom_date', 10, 2 );
 add_filter( 'vc_gitem_template_attribute_custom_tax', 'vc_gitem_template_attribute_custom_tax', 10, 2 );
 
 function vc_gitem_template_attribute_post_attr( $value, $data ) {
@@ -1870,6 +1893,28 @@ function vc_gitem_template_attribute_author_pic( $value, $data ) {
   return '<span class="post-author-img">' . 
                           wp_get_attachment_image($author_pic['ID'], 'thumbnail') . 
                         '</span>';
+}
+function vc_gitem_template_attribute_custom_date( $value, $data ) {
+  //return 'test';
+  /**
+    * @var Wp_Post $post
+    * @var string $data
+    */
+   extract( array_merge( array(
+      'post' => null,
+      'data' => '',
+   ), $data ) );
+	
+	$output = '<div class="custom-post-date">
+		<span class="post-day">' .
+			get_the_time('d', $post) .
+		'</span>
+		<span class="post-month">' .
+			get_the_time('M', $post) .
+		'</span>
+	</div>';
+	
+	return $output;
 }
 function vc_gitem_template_attribute_custom_tax( $value, $data ) {
   //return 'test';

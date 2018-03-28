@@ -42,12 +42,12 @@ jQuery(function($) {
 				var controls = $(j).find('.content-slider-controls');
 				var canRotate = true;
 
-				function getVisibleSlides() {
+				function getVisibleSlides(numSlides = 4) {
 					switch(true) {
 						case (window.innerWidth > 1024):
-							return 4;
+							return numSlides;
 						case (window.innerWidth > 767):
-							return 3;
+							return Math.min(3, numSlides);
 						case (window.innerWidth > 640):
 							return 2;
 						default: 
@@ -55,7 +55,9 @@ jQuery(function($) {
 					}
 				}
 
-				var visibleSlides = getVisibleSlides();
+				var numSlides = $(j).data('num_slides');
+				console.log('number of slides' + numSlides);
+				var visibleSlides = getVisibleSlides(numSlides);
 
 				function initializeMultiSlider() {
 					var sliderHeight = 0;
