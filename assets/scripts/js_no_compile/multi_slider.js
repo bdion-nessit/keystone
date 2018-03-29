@@ -72,9 +72,10 @@ jQuery(function($) {
 				function adjustSlides() {
 					var oldWidth = sliderWidth;
 					var oldVisible = visibleSlides;
+					var numSlides = $(j).data('num_slides');
 					
 					sliderWidth = $(j).width();
-					visibleSlides = getVisibleSlides();
+					visibleSlides = getVisibleSlides(numSlides);
 					
 					initializeMultiSlider();
 					
