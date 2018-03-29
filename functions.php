@@ -233,9 +233,9 @@ function custom_nav_filter($items, $args) {
 		if(!$is_mobile_menu) {
 			$args->items_wrap = '<ul id="%1$s" class="%2$s horizontal dropdown menu" data-dropdown-menu>%3$s</ul>';
 			$items = preg_replace('/sub\-menu/', 'sub-menu nested menu vertical', $items);
-			$is_mobile_menu = true; //Now that we've displayed the main menu normally, we can display the mobile version
 		}
 		//Mobile version will use drilldowns
+		//Set to use mobile version when the mobile sidebar is loaded
 		else {
 		  $args->items_wrap = '<ul id="%1$s" class="%2$s vertical menu drilldown" data-drilldown data-auto-height="true">%3$s</ul>';
 		  $items = preg_replace('/sub\-menu/', 'sub-menu menu vertical', $items);

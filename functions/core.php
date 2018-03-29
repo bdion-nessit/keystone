@@ -569,6 +569,9 @@ function joints_do_topbar() {
 }
 
 function joints_do_mobile_menu() {
+	global $is_mobile_menu;
+	$is_mobile_menu = true;
+	
 	echo '<div class="mobile-menu">
 		<div class="hamburger-menu-wrap">
 			<div class="hamburger-menu"></div>
@@ -577,6 +580,8 @@ function joints_do_mobile_menu() {
 			dynamic_sidebar('mobile_menu'); 
 	echo '</div>
 	</div>';
+	
+	$is_mobile_menu = false;
 }
 
 //-------End Header Functionality-------
