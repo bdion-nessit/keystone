@@ -53,6 +53,7 @@ add_action('vc_before_init', 'vc_rotary_menu_init');
 add_action('vc_before_init', 'vc_table_init');
 add_action('vc_before_init', 'vc_custom_button_init');
 add_action('vc_before_init', 'vc_blockquote_init');
+add_action('vc_before_init', 'vc_modal_init'); 
 add_action('vc_before_init', 'vc_flex_gallery_init'); 
 add_action('init', 'vc_custom_posts_widget_init', 35);
 add_action('init', 'vc_custom_posts_accordion_widget_init', 35);
@@ -1123,8 +1124,8 @@ function vc_custom_button_init() {
 }
 function vc_blockquote_init() {
 	if(!function_exists('vc_map')) {
-    return;
-  }
+    	return;
+ 	}
 	vc_map(array(
 		'name' => 'Joints Blockquote',
 		'base' => 'vc_blockquote',
@@ -1158,6 +1159,43 @@ function vc_blockquote_init() {
 			),
 		),
 	));
+}
+function vc_modal_init() {
+	if(!function_exists('vc_map')) {
+    	return;
+	}
+	vc_map(array(
+		'name' => 'Joints Modal',
+		'base' => 'vc_modal',
+		'icon' => 'vc_modal_icon',
+		'content_element' => true,
+		'show_settings_on_create' => false,
+		'is_container' => true,
+		'params' => array(
+			array(
+				'type' => 'textfield',
+				'heading' => 'Element ID',
+				'param_name' => 'el_id',
+				'group' => 'General',
+			),
+			array(
+				'type' => 'textfield',
+				'heading' => 'Extra class name',
+				'param_name' => 'el_class',
+				'group' => 'General',
+			),
+			array(
+				'type' => 'css_editor',
+				'heading' => 'CSS Options',
+				'param_name' => 'css',
+				'group' => 'Design options',
+			),
+		),
+	));
+	
+	class WPBakeryShortCode_vc_Modal extends WPBakeryShortCodesContainer {
+
+    }  
 }
 function vc_flex_gallery_init() {
 	if(!function_exists('vc_map')) {
