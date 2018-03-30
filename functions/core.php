@@ -308,7 +308,7 @@ function open_vc_row_equal_height_wrapper($i = 12) {
     return '<div class="vc_row vc_row-o-equal-height vc_row-flex">';
 }
 function open_vc_column_wrapper($i=12) {
-	return '<div class="vc_col-sm-' . 12 . '">
+	return '<div class="vc_col-sm-' . $i . ' vc_column_container">
     	<div class="vc_column-inner">';
 }
 

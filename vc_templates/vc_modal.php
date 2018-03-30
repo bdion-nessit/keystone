@@ -48,7 +48,8 @@ if ( ! empty( $el_id ) ) {
 
 $output .= '<div ' . implode(' ', $wrapper_attributes) . '>
 	<div class="modal-background js-modal-background"></div>
-	<div class="modal-content">' .  
+	<div class="modal-content">
+		<div class="close-x js-close-x">Cloxe X</div>' .  
 		wpb_js_remove_wpautop( $content ) . 
 	'</div>
 </div>';
