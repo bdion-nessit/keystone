@@ -1171,6 +1171,7 @@ function vc_modal_init() {
 		'content_element' => true,
 		'show_settings_on_create' => false,
 		'is_container' => true,
+		"js_view" => 'VcColumnView',
 		'params' => array(
 			array(
 				'type' => 'textfield',
