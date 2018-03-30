@@ -966,6 +966,20 @@ function vc_custom_button_init() {
               ),
             ),
 			array(
+				'type' => 'textfield',
+				'heading' => 'Image Size',
+				'description' => 'Enter image size (Example: "thumbnail", "medium", "large", "full" or other sizes defined by theme). Alternatively enter size in pixels (Example: 200x100 (Width x Height)).',
+				'param_name' => 'button_img_size',
+				'group' => 'General',
+				'value' => 'full',
+				'dependency' => array(
+					'element' => 'content_type',
+					'value' => array(
+						'img',
+					),
+				),
+			),
+			array(
               "type" => "textarea_html",
               "class" => "",
               "heading" => 'Button content',
@@ -979,7 +993,8 @@ function vc_custom_button_init() {
                   'textbox',
                   ),
                 ),
-           ),
+			),
+			
           /**
           array(
               "type" => "dropdown",
@@ -1332,7 +1347,7 @@ function get_tax_list($tax = 'category') {
 //--------Functionality for custom VC widgets-------
 
 add_shortcode('vc_custom_posts_widget', 'joints_vc_custom_posts_widget');
-add_shortcode('vc_inline_custom_button', 'joints_custom_vc_button');
+add_shortcode('vc_inline_custom_button', 'joints_vc_custom_button');
 add_shortcode('vc_blockquote', 'joints_blockquote');
 add_shortcode('vc_flex_gallery', 'joints_flex_gallery');
 add_shortcode('vc_custom_posts_accordion', 'joints_custom_posts_accordion');
@@ -1544,7 +1559,7 @@ function custom_hover_colors($atts, $style_id, $widget_atts=array()) {
 	return $widget_atts;
 }
 
-function joints_custom_vc_button($atts, $content) {
+function joints_vc_custom_button($atts, $content) {
     
     $class = (isset($atts['el_class']) ? $atts['el_class'] : "");
 	$wrapper_classes = array();
@@ -1584,11 +1599,13 @@ function joints_custom_vc_button($atts, $content) {
 		case 'img': 
 			if(isset($atts['img'])) {
 				$imgArr = explode(',', $atts['img']);
-				$button_atts['content'] = wp_get_attachment_image($imgArr[0], 'full');
+				$img_size = $atts['button_img_size'] ?? 'full';
+				
+				$button_atts['content'] = wp_get_attachment_image($imgArr[0], $img_size);
 
 				//If a second image (for hover state) is set
 				if(!empty($imgArr[1])) {
-					$button_atts['content'] .= wp_get_attachment_image($imgArr[1], 'full');
+					$button_atts['content'] .= wp_get_attachment_image($imgArr[1], $img_size);
 
 					$classes_arr[] = 'has-hover';
 				}
