@@ -7,7 +7,7 @@
  */
 
 add_action('joints_entry_content', 'echo_open_vc_row_wrapper', 7);
-add_action('joints_entry_content', 'echo_open_vc_row_wrapper', 11);
+add_action('joints_entry_content', 'echo_close_vc_row_wrapper', 12);
 
 get_header(); 
 do_action('joints_before_content');
