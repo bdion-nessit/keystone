@@ -51,6 +51,9 @@ function update_post() {
 				$output['message'] = 'Error creating post';
 			}
 			break;
+		case 'delete':
+			wp_delete_post($data['post_no']);
+			break;
 		case 'toggle_field': 
 			$output['test'] = $data['meta_fields'];
 			switch($data['field_type']) {

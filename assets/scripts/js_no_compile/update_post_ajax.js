@@ -71,5 +71,5 @@ function processUpdate(resp, button) {
 	});
 }
 
-//jQuery('.update-post').click(updatePost);
+jQuery('.update-post').on('click', updatePost);
 	

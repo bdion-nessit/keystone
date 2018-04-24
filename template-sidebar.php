@@ -3,6 +3,8 @@
 Template Name: Page with Sidebar
 */
 
+global $column_width;
+
 get_header(); 
 do_action('joints_before_content');
 ?>
