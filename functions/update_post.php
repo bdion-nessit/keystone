@@ -18,7 +18,8 @@ function update_post() {
 	
 	$data['post_type'] = (!empty($data['post_type']) ? $data['post_type'] : 'post');
 	$data['post_no'] = (!empty($data['post_no']) ? $data['post_no'] : 0);
-	$data['post_field'] = (!empty($data['post_field']) ? $data['post_field'] : 'post_content');
+	$data['post_fields'] = $data['post_fields'] ?? array();
+	$data['content'] = $data['content'] ?? '';
 	$data['target'] = (!empty($data['target']) ? $data['target'] : '.message');
 	$data['callback'] = (!empty($data['callback']) ? $data['callback'] : '');
 	
@@ -54,7 +55,7 @@ function update_post() {
 		case 'delete':
 			wp_delete_post($data['post_no']);
 			break;
-		case 'toggle_field': 
+		case 'toggle_field': //Looks like this is updating a pods array.  Can likely be removed from general use
 			$output['test'] = $data['meta_fields'];
 			switch($data['field_type']) {
 				case 'pods':
@@ -96,6 +97,17 @@ function update_post() {
 					}
 					break;
 			}
+			break;
+		case 'update':
+			$args = array(
+				'ID' => $data['post_no'],
+			);
+			
+			foreach($data['post_fields'] as $field => $content) {
+				$args[$field] = $content;
+			}
+			
+			wp_update_post($args);
 			break;
 	}
 	$output['target'] = $data['target'];

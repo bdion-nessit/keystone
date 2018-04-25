@@ -15,6 +15,15 @@ function updatePost(elem) {
 			if(!noErrors) {
 			   return;
 			}
+			
+			if(jQuery(_this).data('confirmation')) {
+				var confirm = window.confirm(jQuery(_this).data('confirmation'));
+
+				if(!confirm) {
+					return false;
+				}
+			}
+			
 			if(request) {
 				request.abort();
 			}
@@ -23,16 +32,22 @@ function updatePost(elem) {
 				'action':$(_this).data('action'),
 				'post_no':$(_this).data('post_no'),
 				'post_type':$(_this).data('post_type'),
-				'post_fields':{
-					'post_content':$(_this).siblings('input[name="post_content"], textarea[name="post_content"]').val(),
-				},
+				'post_fields':{},
 				'meta_fields':{},
 				'field_type':$(_this).data('field_type'),
 				'target':$(_this).data('target'),
 				'messages':$(_this).data('messages'),
 				'callback':$(_this).data('callback'),
 			};
-
+			var post_fields = $(_this).data('post_fields'); 
+			var content = $(_this).data('content');
+			
+			if(post_fields) {
+			   $.each(post_fields, function(i, j) {
+				   dataToSend.post_fields[j] = content[i];
+			   });
+			}
+			
 			//Store each meta field to be updated separately
 			$(_this).siblings('.meta').each(function(k, l) {
 				dataToSend.meta_fields[$(l).attr('name')] = $(l).val();
@@ -65,8 +80,10 @@ function processUpdate(resp, button) {
 		   $(button).siblings('input[type="text"], textarea').val('');
 		}
 		
-		if(resp.callback) {
-			window['updateFavorites'](resp, button);
+		switch(resp.callback) {
+			case 'reload':
+				location.reload();
+				break;
 		}
 	});
 }

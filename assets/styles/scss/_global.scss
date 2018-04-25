@@ -653,6 +653,10 @@ hover_box {
 	}
 } 
 
+.update-post {
+	cursor: pointer;
+}
+
 // Add Foundation styling to password protect button
 .post-password-form input[type="submit"] {
 	@include button;
