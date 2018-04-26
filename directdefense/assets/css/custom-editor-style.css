@@ -1,0 +1,40 @@
+.vc_shortcodes_container.wpb_vc_single_item_slider_item {
+	background-color: #f5f5f5;
+}
+.wpb_vc_inline_custom_button .vc_admin_label {
+	display: inline-block;
+	width: 70%;
+}
+.wpb-layout-element-button[data-element=vc_linkable_column] .vc_element-icon {
+    background-image: url('../images/linkable-column.png');
+    background-size: contain;
+    background-position: center center;
+}
+
+.vc_linkable_column_icon.vc_element-icon {
+    background-image: url('../images/linkable-column.png');
+    background-size: contain;
+    background-position: center center;
+}
+.wpb-layout-element-button[data-element=vc_single_item_slider] .vc_element-icon {
+    background-image: url('../images/single-item-slider.png');
+    background-size: contain;
+    background-position: center center;
+}
+
+.vc_single_item_slider_icon.vc_element-icon {
+    background-image: url('../images/single-item-slider.png');
+    background-size: contain;
+    background-position: center center;
+}
+.wpb-layout-element-button[data-element=vc_single_item_slider_item] .vc_element-icon {
+    background-image: url('../images/single-item-slider-item.png');
+    background-size: contain;
+    background-position: center center;
+}
+
+.vc_single_item_slider_item_icon.vc_element-icon {
+    background-image: url('../images/single-item-slider-item.png');
+    background-size: contain;
+    background-position: center center;
+}

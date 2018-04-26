@@ -1,0 +1,17 @@
+.preload {
+	display: inline-block !important;
+	position: fixed;
+	z-index: 1000000000;
+	width: 100vw;
+	height: 100vh !important;
+	background-color: #232121;
+	background-image: url('../../images/preloader.gif');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: auto 50vh;
+	top: 0;
+	left: 0;
+}
+.preload * {
+	display: none;
+}
