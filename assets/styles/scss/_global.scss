@@ -494,9 +494,12 @@ Posts & Content Styles
 	max-width: none;
 }
 
-.main {
-	padding: 0;
-	width: 100% !important;
+.grid-margin-x {
+	> .main {
+		margin: 0;
+		padding: 0;
+		width: 100% !important;
+	}
 }
 
 // Entry content  
